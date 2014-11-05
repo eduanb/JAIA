@@ -8,9 +8,9 @@ public class RandomSelection implements SelectionStrategy
 	int c = 0;
 
 	@Override
-	public Solution[] select(Solution[] solutionArray)
+	public Chromosome[] select(Chromosome[] solutionArray)
 	{
-		Solution[] parents = new Solution[2];
+		Chromosome[] parents = new Chromosome[2];
 		int parent1 = -1;
 		int parent2 = -1;
 		// c makes sure random doesn't always return the same 2 random parents

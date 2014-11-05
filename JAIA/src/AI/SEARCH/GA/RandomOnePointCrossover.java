@@ -14,17 +14,17 @@ public class RandomOnePointCrossover implements Crossover
 	}
 
 	@Override
-	public Solution[] crossover(Solution[] population, double crossoverRate) throws SolutionTypeException
+	public Chromosome[] crossover(Chromosome[] population, double crossoverRate) throws SolutionTypeException
 	{
 		c++;
 		Random random = new Random();
 		random.setSeed(new Date().getTime() + c);
-		Solution[] offspring = new Solution[population.length];
+		Chromosome[] offspring = new Chromosome[population.length];
 		
 		int i = 0;
 		while(i < population.length)
 		{
-			Solution[] parents = selectionStrategy.select(population);
+			Chromosome[] parents = selectionStrategy.select(population);
 			if(random.nextFloat() > crossoverRate)
 			{
 				//no crossover
@@ -34,8 +34,8 @@ public class RandomOnePointCrossover implements Crossover
 			else
 			{
 				//crossover
-				Solution Child1 = parents[0];
-				Solution Child2 = parents[1];
+				Chromosome Child1 = parents[0];
+				Chromosome Child2 = parents[1];
 				int point = random.nextInt(population.length);
 				Child1.swop(Child2,point);
 				offspring[i++] = Child1;
