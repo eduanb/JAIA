@@ -24,10 +24,10 @@ public class BinaryChromosome implements Chromosome
 	 * Randomizes the solution to any values
 	 */
 	@Override
-	public void randomizeChromosome() throws SolutionEmptyException
+	public void randomizeChromosome() throws ChromosomeEmptyException
 	{
 		if (genes == null || genes.length == 0)
-			throw new SolutionEmptyException();
+			throw new ChromosomeEmptyException();
 		c++;
 		random.setSeed(new Date().getTime() + c);
 		for (int i = 0; i < genes.length; i++)
@@ -51,7 +51,7 @@ public class BinaryChromosome implements Chromosome
 	}
 
 	@Override
-	public void swop(Chromosome other, int point) throws SolutionTypeException
+	public void swop(Chromosome other, int point) throws ChromosomeTypeException
 	{
 		BinaryChromosome otherBinary;
 		if (other instanceof BinaryChromosome)
@@ -60,7 +60,7 @@ public class BinaryChromosome implements Chromosome
 		}
 		else
 		{
-			throw new SolutionTypeException("Binary Solution Expected!");
+			throw new ChromosomeTypeException("Binary Solution Expected!");
 		}
 		for (int i = 0; i < point; i++)
 		{

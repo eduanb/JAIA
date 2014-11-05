@@ -1,6 +1,6 @@
 package AI.SEARCH.GA;
 
-public class SolutionEmptyException extends Exception
+public class ChromosomeEmptyException extends Exception
 {
 	private static final long serialVersionUID = 1L;
 	@Override
