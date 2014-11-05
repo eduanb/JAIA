@@ -14,7 +14,7 @@ public class RandomOnePointCrossover implements Crossover
 	}
 
 	@Override
-	public Chromosome[] crossover(Chromosome[] population, double crossoverRate) throws ChromosomeTypeException
+	public Chromosome[] crossover(Chromosome[] population, double crossoverRate) throws ChromosomeTypeException, ChromosomeEmptyException
 	{
 		c++;
 		Random random = new Random();

@@ -17,7 +17,7 @@ public class GeniticAlgorithm
 		this.iterationCount = 0;
 	}
 	
-	public Chromosome[] nextGeneration(Chromosome[] population) throws ChromosomeTypeException
+	public Chromosome[] nextGeneration(Chromosome[] population) throws ChromosomeTypeException, ChromosomeEmptyException
 	{
 		iterationCount++;
 		Chromosome[] result;
@@ -27,7 +27,7 @@ public class GeniticAlgorithm
 		return result;
 	}
 	
-	public Chromosome[] runUntilCondition(Chromosome[] population,  TerminationCondition ... conditions) throws ChromosomeTypeException
+	public Chromosome[] runUntilCondition(Chromosome[] population,  TerminationCondition ... conditions) throws ChromosomeTypeException, ChromosomeEmptyException
 	{
 		Chromosome[] result = population;
 		while(!terminateCondition(conditions,population,iterationCount))

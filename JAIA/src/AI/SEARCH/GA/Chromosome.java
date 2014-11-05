@@ -9,4 +9,6 @@ public interface Chromosome
 	public void randomMutateGene(int geneNumber);
 
 	public void randomizeChromosome() throws ChromosomeEmptyException;
+	
+	public double getFitness() throws ChromosomeEmptyException;
 }

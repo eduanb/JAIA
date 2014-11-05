@@ -8,16 +8,22 @@ public class BinaryChromosome implements Chromosome
 	Boolean[] genes;
 	int c = 0;
 	Random random;
-	public BinaryChromosome(Boolean[] genes)
+	FitnessFunction fitnessFunction;
+	double fitness = -1;
+
+	public BinaryChromosome(Boolean[] genes, FitnessFunction fitnessFunction)
 	{
 		this.genes = genes;
 		random = new Random();
+		this.fitnessFunction = fitnessFunction;
+		fitness = fitnessFunction.calculateFitness(this);
 	}
 
-	public BinaryChromosome(int size)
+	public BinaryChromosome(int size, FitnessFunction fitnessFunction)
 	{
 		genes = new Boolean[size];
 		random = new Random();
+		this.fitnessFunction = fitnessFunction;
 	}
 
 	/**
@@ -34,7 +40,7 @@ public class BinaryChromosome implements Chromosome
 		{
 			genes[i] = random.nextBoolean();
 		}
-
+		fitness = fitnessFunction.calculateFitness(this);
 	}
 
 	@Override
@@ -81,6 +87,16 @@ public class BinaryChromosome implements Chromosome
 	public int getNumberOfGenes()
 	{
 		return genes.length;
+	}
+
+	@Override
+	public double getFitness() throws ChromosomeEmptyException
+	{
+		if (genes.length == 0)
+			throw new ChromosomeEmptyException();
+		if (fitness == -1)
+			fitness = fitnessFunction.calculateFitness(this);
+		return fitness;
 	}
 
 }
