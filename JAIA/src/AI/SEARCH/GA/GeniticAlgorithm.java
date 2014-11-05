@@ -16,8 +16,8 @@ public class GeniticAlgorithm
 	public Chromosome[] nextGeneration(Chromosome[] population,double crossoverRate, double mutationRate) throws ChromosomeTypeException, ChromosomeEmptyException
 	{
 		iterationCount++;
-		Chromosome[] result;
-		result =  crossover.crossover(population, crossoverRate);
+		Chromosome[] result = population;
+		result =  crossover.crossover(result, crossoverRate);
 		result = mutate.mutate(result, mutationRate);
 		//TODO: Elitism + generationGap
 		return result;

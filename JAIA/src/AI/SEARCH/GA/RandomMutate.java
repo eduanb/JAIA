@@ -20,7 +20,7 @@ public class RandomMutate implements Mutate
 		{
 			for(int j = 0; j < population[i].getNumberOfGenes();j++)
 			{
-				if(random.nextFloat() < mutationRate)
+				if(random.nextDouble() < mutationRate)
 				{
 					//I is the chromosone in population
 					//J is the gene to mutate

@@ -5,13 +5,13 @@ import java.util.Random;
 
 public class BinaryChromosome implements Chromosome
 {
-	Boolean[] genes;
+	boolean[] genes;
 	int c = 0;
 	Random random;
 	FitnessFunction fitnessFunction;
 	double fitness = -1;
 
-	public BinaryChromosome(Boolean[] genes, FitnessFunction fitnessFunction)
+	public BinaryChromosome(boolean[] genes, FitnessFunction fitnessFunction)
 	{
 		this.genes = genes;
 		random = new Random();
@@ -21,7 +21,7 @@ public class BinaryChromosome implements Chromosome
 
 	public BinaryChromosome(int size, FitnessFunction fitnessFunction)
 	{
-		genes = new Boolean[size];
+		genes = new boolean[size];
 		random = new Random();
 		this.fitnessFunction = fitnessFunction;
 	}
@@ -83,6 +83,7 @@ public class BinaryChromosome implements Chromosome
 	public void randomMutateGene(int chromosone)
 	{
 		genes[chromosone] = random.nextBoolean();
+		fitness = fitnessFunction.calculateFitness(this);
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class RandomOnePointCrossover implements Crossover
 		while(i < population.length)
 		{
 			Chromosome[] parents = selectionStrategy.select(population);
-			if(random.nextFloat() > crossoverRate)
+			if(random.nextFloat() < crossoverRate)
 			{
 				//no crossover
 				offspring[i++] = parents[0];
