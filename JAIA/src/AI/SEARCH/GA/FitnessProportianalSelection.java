@@ -7,15 +7,18 @@ public class FitnessProportianalSelection implements SelectionStrategy
 {
 	Random random;
 	int c;
+	ChromosomeSorter sorter;
 
-	public FitnessProportianalSelection()
+	public FitnessProportianalSelection(ChromosomeSorter sorter)
 	{
 		random = new Random();
+		this.sorter = sorter;
 	}
 
 	@Override
 	public Chromosome[] select(Chromosome[] chromosomeArray) throws ChromosomeEmptyException
 	{
+		sorter.sortAscending(chromosomeArray);
 		double[] probability = getProbability(chromosomeArray);
 		Chromosome[] result = new Chromosome[2];
 		c++;
