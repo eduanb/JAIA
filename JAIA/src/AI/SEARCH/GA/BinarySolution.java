@@ -3,7 +3,7 @@ package AI.SEARCH.GA;
 import java.util.Date;
 import java.util.Random;
 
-public class BinarySolution implements Solution<Boolean[]>
+public class BinarySolution implements Solution
 {
 	Boolean[] solution;
 	int c = 0;
@@ -35,11 +35,6 @@ public class BinarySolution implements Solution<Boolean[]>
 		}
 		
 	}
-	@Override
-	public Boolean[] getSolution()
-	{
-		return solution;
-	}
 	
 	@Override
 	public String toString()
@@ -52,6 +47,28 @@ public class BinarySolution implements Solution<Boolean[]>
 			result.append(solution[i] + ", ");
 		}
 		return result.toString();
+	}
+
+
+	@Override
+	public void swop(Solution other, int point) throws SolutionTypeException
+	{
+		BinarySolution otherBinary;
+		if(other instanceof BinarySolution)
+		{
+			otherBinary = (BinarySolution)other;
+		}
+		else
+		{
+			throw new SolutionTypeException("Binary Solution Expected!");
+		}
+		for(int i = 0; i < point; i++)
+		{
+			boolean temp = this.solution[i];
+			this.solution[i] = otherBinary.solution[i];
+			otherBinary.solution[i] = temp;
+		}
+		
 	}
 
 }

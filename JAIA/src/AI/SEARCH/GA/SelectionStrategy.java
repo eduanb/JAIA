@@ -1,6 +1,6 @@
 package AI.SEARCH.GA;
 
-public interface SelectionStrategy<T>
+public interface SelectionStrategy
 {
-	public Solution<T>[] select(Solution<T>[] solutionArray);
+	public Solution[] select(Solution[] solutionArray);
 }

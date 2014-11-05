@@ -3,14 +3,14 @@ package AI.SEARCH.GA;
 import java.util.Date;
 import java.util.Random;
 
-public class RandomSelection<T> implements SelectionStrategy<T>
+public class RandomSelection implements SelectionStrategy
 {
 	int c = 0;
 
 	@Override
-	public Solution<T>[] select(Solution<T>[] solutionArray)
+	public Solution[] select(Solution[] solutionArray)
 	{
-		Solution<T>[] parents = new Solution[2];
+		Solution[] parents = new Solution[2];
 		int parent1 = -1;
 		int parent2 = -1;
 		// c makes sure random doesn't always return the same 2 random parents

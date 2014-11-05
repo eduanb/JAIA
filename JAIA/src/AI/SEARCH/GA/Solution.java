@@ -1,6 +1,6 @@
 package AI.SEARCH.GA;
 
-public interface Solution<T>
+public interface Solution
 {
-  T getSolution();
+  public void swop(Solution other, int point) throws SolutionTypeException;
 }
