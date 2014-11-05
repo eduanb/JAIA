@@ -5,8 +5,8 @@ public class Main
 
 	public static void main(String[] args) throws ChromosomeEmptyException, ChromosomeTypeException
 	{
-		double crossoverRate = 0.6;
-		double mutationRate = 0.1;
+		double crossoverRate = 0.2;
+		double mutationRate = 0.01;
 		// Create GA
 		SelectionStrategy selectionStrategy = new FitnessProportianalSelection(new JavaChromosoneSorter());
 		Crossover crossover = new RandomOnePointCrossover(selectionStrategy);
@@ -25,7 +25,7 @@ public class Main
 		chromosomes[0] = new BinaryChromosome(arr, zero);
 		System.out.println(chromosomes[0]);
 		System.out.println(fitAvg(chromosomes));
-		chromosomes = GA.runUntilCondition(chromosomes, crossoverRate,mutationRate, new GenerationMaxTerminateCondition(10));
+		chromosomes = GA.runUntilCondition(chromosomes, crossoverRate,mutationRate, new GenerationMaxTerminateCondition(100));
 		//chromosomes = GA.nextGeneration(chromosomes,crossoverRate,mutationRate);
 		System.out.println(fitAvg(chromosomes));
 		System.out.println(chromosomes[0]);
