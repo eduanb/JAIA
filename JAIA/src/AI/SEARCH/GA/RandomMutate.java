@@ -28,7 +28,7 @@ public class RandomMutate implements Mutate
 				}
 			}
 		}
-		return null;
+		return population;
 	}
 
 }

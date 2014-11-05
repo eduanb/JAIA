@@ -48,11 +48,13 @@ public class BinaryChromosome implements Chromosome
 	{
 		if (genes == null || genes.length == 0)
 			return "{}";
-		StringBuilder result = new StringBuilder();
+		StringBuilder result = new StringBuilder().append("Fitness:").append(fitness).append(" {");
 		for (int i = 0; i < genes.length; i++)
 		{
-			result.append(genes[i] + ", ");
+			result.append(genes[i]);
+			if(i < genes.length - 1) result.append(", ");
 		}
+		result.append("}");
 		return result.toString();
 	}
 

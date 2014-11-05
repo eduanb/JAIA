@@ -4,20 +4,16 @@ public class GeniticAlgorithm
 {
 	Crossover crossover;
 	Mutate mutate;
-	int crossoverRate;
-	int mutationRate;
 	int iterationCount;
-	public GeniticAlgorithm(Crossover crossover, Mutate mutate, int crossoverRate, int mutationRate)
+	public GeniticAlgorithm(Crossover crossover, Mutate mutate)
 	{
 		super();
 		this.crossover = crossover;
 		this.mutate = mutate;
-		this.crossoverRate = crossoverRate;
-		this.mutationRate = mutationRate;
 		this.iterationCount = 0;
 	}
 	
-	public Chromosome[] nextGeneration(Chromosome[] population) throws ChromosomeTypeException, ChromosomeEmptyException
+	public Chromosome[] nextGeneration(Chromosome[] population,double crossoverRate, double mutationRate) throws ChromosomeTypeException, ChromosomeEmptyException
 	{
 		iterationCount++;
 		Chromosome[] result;
@@ -27,12 +23,12 @@ public class GeniticAlgorithm
 		return result;
 	}
 	
-	public Chromosome[] runUntilCondition(Chromosome[] population,  TerminationCondition ... conditions) throws ChromosomeTypeException, ChromosomeEmptyException
+	public Chromosome[] runUntilCondition(Chromosome[] population,double crossoverRate, double mutationRate, TerminationCondition ... conditions) throws ChromosomeTypeException, ChromosomeEmptyException
 	{
 		Chromosome[] result = population;
 		while(!terminateCondition(conditions,population,iterationCount))
 		{
-			result = nextGeneration(result);
+			result = nextGeneration(result,crossoverRate,mutationRate);
 		}
 		return result;
 	}

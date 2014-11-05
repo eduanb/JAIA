@@ -33,7 +33,7 @@ public class FitnessProportianalSelection implements SelectionStrategy
 		} while (parent1 == parent2);
 
 		result[0] = chromosomeArray[parent1];
-		result[2] = chromosomeArray[parent2];
+		result[1] = chromosomeArray[parent2];
 		return result;
 	}
 
