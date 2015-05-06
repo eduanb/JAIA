@@ -160,4 +160,38 @@ public class FileIO
         }
         return (String[][]) result.toArray();
     }
+
+    public int[][] Read2DArrayAsInt(String fileName, String separator)
+    {
+        return  Read2DArrayAsInt(new File(fileName), separator);
+    }
+
+    public static int[][] Read2DArrayAsInt(File file, String separator)
+    {
+        Scanner scanner;
+        List<int[]> result = new LinkedList<>();
+        try
+        {
+            scanner = new Scanner(file);
+            while (scanner.hasNextLine())
+            {
+                String[] splitString = scanner.nextLine().split(separator);
+                int[] splitInt = new int[splitString.length];
+                for(int i = 0; i < splitString.length; i++ )
+                {
+                    if(splitString[i].equals(""))
+                        splitInt[i] = Integer.MIN_VALUE;
+                    else
+                        splitInt[i] = Integer.parseInt(splitString[i]);
+                }
+                result.add(splitInt);
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File does not exist.");
+            System.exit(-1);//Exit with error
+        }
+        return (int[][]) result.toArray();
+    }
 }
