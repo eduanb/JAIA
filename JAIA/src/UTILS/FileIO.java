@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -107,5 +109,55 @@ public class FileIO
             System.exit(-1);//Exit with error
         }
         return result.toString();
+    }
+
+    public static String[] ReadArray(String fileName)
+    {
+        return  ReadArray(new File(fileName));
+    }
+
+    public static String[] ReadArray(File file)
+    {
+        Scanner scanner;
+        List<String> result = new LinkedList<>();
+        try
+        {
+            scanner = new Scanner(file);
+            while (scanner.hasNextLine())
+            {
+                result.add(scanner.nextLine());
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File does not exist.");
+            System.exit(-1);//Exit with error
+        }
+        return (String[]) result.toArray();
+    }
+
+    public String[][] Read2DArray(String fileName, String separator)
+    {
+        return  Read2DArray(new File(fileName), separator);
+    }
+
+    public static String[][] Read2DArray(File file, String separator)
+    {
+        Scanner scanner;
+        List<String[]> result = new LinkedList<>();
+        try
+        {
+            scanner = new Scanner(file);
+            while (scanner.hasNextLine())
+            {
+                result.add(scanner.nextLine().split(separator));
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File does not exist.");
+            System.exit(-1);//Exit with error
+        }
+        return (String[][]) result.toArray();
     }
 }
