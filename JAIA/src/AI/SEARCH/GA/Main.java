@@ -11,7 +11,7 @@ public class Main
 		SelectionStrategy selectionStrategy = new FitnessProportianalSelection(new JavaChromosoneSorter());
 		Crossover crossover = new RandomOnePointCrossover(selectionStrategy);
 		Mutate mutate = new RandomMutate();
-		GeniticAlgorithm GA = new GeniticAlgorithm(crossover, mutate);
+		GeneticAlgorithm GA = new GeneticAlgorithm(crossover, mutate);
 
 		// Create chromosomes
 		Chromosome[] chromosomes = new Chromosome[10];

@@ -1,11 +1,11 @@
 package AI.SEARCH.GA;
 
-public class GeniticAlgorithm
+public class GeneticAlgorithm
 {
 	Crossover crossover;
 	Mutate mutate;
 	int iterationCount;
-	public GeniticAlgorithm(Crossover crossover, Mutate mutate)
+	public GeneticAlgorithm(Crossover crossover, Mutate mutate)
 	{
 		super();
 		this.crossover = crossover;
