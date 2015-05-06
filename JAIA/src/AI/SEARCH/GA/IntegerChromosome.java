@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class IntegerChromosome implements Chromosome
 {
-	private int[] genes;
-	private int c = 0;
-	private Random random;
-	private FitnessFunction fitnessFunction;
-	private double fitness = -1;
+	protected int[] genes;
+	protected int c = 0;
+	protected Random random;
+	protected FitnessFunction fitnessFunction;
+	protected double fitness = -1;
 
 	public IntegerChromosome(int[] genes, FitnessFunction fitnessFunction)
 	{
