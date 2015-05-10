@@ -38,4 +38,11 @@ public class RangedIntegerChromosome extends IntegerChromosome
 		fitness = fitnessFunction.calculateFitness(this);
 	}
 
+	@Override
+	public void randomMutateGene(int chromosome)
+	{
+		genes[chromosome] = random.nextInt((max - min) + 1) + min;
+		fitness = fitnessFunction.calculateFitness(this);
+	}
+
 }

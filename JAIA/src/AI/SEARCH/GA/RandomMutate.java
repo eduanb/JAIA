@@ -15,7 +15,6 @@ public class RandomMutate implements Mutate
 	public Chromosome[] mutate(Chromosome[] population, double mutationRate)
 	{
 		c++;
-		random.setSeed(new Date().getTime() + c);
 		for(int i = 0; i < population.length; i++)
 		{
 			for(int j = 0; j < population[i].getNumberOfGenes();j++)

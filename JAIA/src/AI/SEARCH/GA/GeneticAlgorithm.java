@@ -13,22 +13,14 @@ public class GeneticAlgorithm
 		this.iterationCount = 0;
 	}
 	
-	public Chromosome[] nextGeneration(Chromosome[] population,double crossoverRate, double mutationRate) throws ChromosomeTypeException, ChromosomeEmptyException
-	{
-		iterationCount++;
-		Chromosome[] result = population;
-		result =  crossover.crossover(result, crossoverRate);
-		result = mutate.mutate(result, mutationRate);
-		//TODO: Elitism + generationGap
-		return result;
-	}
-	
 	public Chromosome[] runUntilCondition(Chromosome[] population,double crossoverRate, double mutationRate, TerminationCondition ... conditions) throws ChromosomeTypeException, ChromosomeEmptyException
 	{
 		Chromosome[] result = population;
-		while(!terminateCondition(conditions,population,iterationCount))
+		while(!terminateCondition(conditions,result,iterationCount))
 		{
-			result = nextGeneration(result,crossoverRate,mutationRate);
+			iterationCount++;
+			result =  crossover.crossover(result, crossoverRate);
+			result = mutate.mutate(result, mutationRate);
 		}
 		return result;
 	}

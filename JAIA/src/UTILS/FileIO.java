@@ -169,7 +169,8 @@ public class FileIO
     public static int[][] Read2DArrayAsInt(File file, String separator)
     {
         Scanner scanner;
-        List<int[]> result = new LinkedList<>();
+        int[][] result = new int[9][];
+        int pos = 0;
         try
         {
             scanner = new Scanner(file);
@@ -179,12 +180,12 @@ public class FileIO
                 int[] splitInt = new int[splitString.length];
                 for(int i = 0; i < splitString.length; i++ )
                 {
-                    if(splitString[i].equals(""))
+                    if(splitString[i].equals("") || splitString[i].equals(" "))
                         splitInt[i] = Integer.MIN_VALUE;
                     else
                         splitInt[i] = Integer.parseInt(splitString[i]);
                 }
-                result.add(splitInt);
+                result[pos++] = splitInt;
             }
         }
         catch (FileNotFoundException e)
@@ -192,6 +193,6 @@ public class FileIO
             System.out.println("File does not exist.");
             System.exit(-1);//Exit with error
         }
-        return (int[][]) result.toArray();
+        return result;
     }
 }

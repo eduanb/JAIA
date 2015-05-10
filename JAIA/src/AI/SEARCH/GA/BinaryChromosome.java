@@ -102,4 +102,9 @@ public class BinaryChromosome implements Chromosome
 		return fitness;
 	}
 
+	@Override
+	public Boolean getGene(int position) {
+		return genes[position];
+	}
+
 }

@@ -82,7 +82,7 @@ public class IntegerChromosome implements Chromosome
 	@Override
 	public void randomMutateGene(int chromosome)
 	{
-		genes[chromosome] = random. nextInt();
+		genes[chromosome] = random.nextInt();
 		fitness = fitnessFunction.calculateFitness(this);
 	}
 
@@ -100,6 +100,11 @@ public class IntegerChromosome implements Chromosome
 		if (fitness == -1)
 			fitness = fitnessFunction.calculateFitness(this);
 		return fitness;
+	}
+
+	@Override
+	public Integer getGene(int position) {
+		return genes[position];
 	}
 
 }
