@@ -4,7 +4,7 @@ public class GenerationMaxTerminateCondition implements TerminationCondition
 {
 	private int maximum;
 
-	GenerationMaxTerminateCondition(int maximum)
+	public GenerationMaxTerminateCondition(int maximum)
 	{
 		this.maximum = maximum;
 	}

@@ -3,13 +3,13 @@ package AI.SEARCH.GA;
 import java.util.Date;
 import java.util.Random;
 
-public class FitnessProportianalSelection implements SelectionStrategy
+public class FitnessProportionalSelection implements SelectionStrategy
 {
 	Random random;
 	int c;
 	ChromosomeSorter sorter;
 
-	public FitnessProportianalSelection(ChromosomeSorter sorter)
+	public FitnessProportionalSelection(ChromosomeSorter sorter)
 	{
 		random = new Random();
 		this.sorter = sorter;

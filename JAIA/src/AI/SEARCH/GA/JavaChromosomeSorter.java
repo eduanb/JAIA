@@ -3,12 +3,12 @@ package AI.SEARCH.GA;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class JavaChromosoneSorter implements ChromosomeSorter
+public class JavaChromosomeSorter implements ChromosomeSorter
 {
 	ChromosomeAscendingComparator AscComparator;
 	ChromosomeDescendingComparator DescComparator;
 
-	JavaChromosoneSorter()
+	public JavaChromosomeSorter()
 	{
 		AscComparator = new ChromosomeAscendingComparator();
 		DescComparator = new ChromosomeDescendingComparator();
@@ -22,7 +22,7 @@ public class JavaChromosoneSorter implements ChromosomeSorter
 	}
 
 	@Override
-	public Chromosome[] sorrDescending(Chromosome[] chromosomes)
+	public Chromosome[] sortDescending(Chromosome[] chromosomes)
 	{
 		Arrays.sort(chromosomes, DescComparator);
 		return chromosomes;

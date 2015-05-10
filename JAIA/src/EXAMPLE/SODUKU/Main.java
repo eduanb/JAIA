@@ -1,4 +1,8 @@
-package AI.SEARCH.GA;
+package EXAMPLE.SODUKU;
+
+import AI.SEARCH.GA.*;
+
+import java.io.File;
 
 public class Main
 {
@@ -8,14 +12,14 @@ public class Main
 		double crossoverRate = 0.2;
 		double mutationRate = 0.01;
 		// Create GA
-		SelectionStrategy selectionStrategy = new FitnessProportianalSelection(new JavaChromosoneSorter());
+		SelectionStrategy selectionStrategy = new FitnessProportionalSelection(new JavaChromosomeSorter());
 		Crossover crossover = new RandomOnePointCrossover(selectionStrategy);
 		Mutate mutate = new RandomMutate();
 		GeneticAlgorithm GA = new GeneticAlgorithm(crossover, mutate);
 
 		// Create chromosomes
 		Chromosome[] chromosomes = new Chromosome[10];
-		zeroFit zero = new zeroFit(); 
+		SodokuFit zero = new SodokuFit(new File("test.txt"));
 		for(int i = 0; i < 10; i++)
 		{
 			chromosomes[i] =  new BinaryChromosome(10, zero);
@@ -45,21 +49,5 @@ public class Main
 			}
 		}
 		return total/c.length;
-	}
-}
-
-class zeroFit implements FitnessFunction
-{
-	@Override
-	public double calculateFitness(Chromosome chromosone)
-	{
-		int result = 0;
-		BinaryChromosome b = (BinaryChromosome) chromosone;
-		for (int i = 0; i < 10; i++)
-		{
-			if (b.genes[i] == false)
-				result++;
-		}
-		return result;
 	}
 }
