@@ -1,3 +1,5 @@
+package Algorithm;
+
 import java.util.LinkedList;
 
 public class NeuralNetwork
@@ -11,6 +13,18 @@ public class NeuralNetwork
         this.inputLayer = inputLayer;
         this.hiddenLayers = hiddenLayers;
         this.outputLayer = outputLayer;
+	}
+
+	public InputLayer getInputLayer() {
+		return inputLayer;
+	}
+
+	public LinkedList<HiddenLayer> getHiddenLayers() {
+		return hiddenLayers;
+	}
+
+	public OutputLayer getOutputLayer() {
+		return outputLayer;
 	}
 
 	public double[] getOutput(double[] inputs)

@@ -1,3 +1,5 @@
+package Algorithm;
+
 import java.util.Random;
 
 public abstract class NeuralNetworkLayer
@@ -9,11 +11,26 @@ public abstract class NeuralNetworkLayer
 	int inputCount;
 	double[][] weights = null;
 
+	public int getNeuronCount() {
+		return neuronCount;
+	}
+
+	public int getInputCount() {
+		return inputCount;
+	}
+
+	public boolean[][] getRandomWalkDirection() {
+		return randomWalkDirection;
+	}
+
+	boolean[][] randomWalkDirection = null;
+
 	public NeuralNetworkLayer(int _neuronCount, int _inputCount)
 	{
 		neuronCount = _neuronCount;
 		inputCount = _inputCount;
 		weights = new double[_inputCount][_neuronCount];
+		randomWalkDirection = new boolean[_inputCount][_neuronCount];
 	}
 	public double[] getOutput(double[] input)
 	{

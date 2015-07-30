@@ -1,3 +1,5 @@
+package Algorithm;
+
 public class OutputLayer extends NeuralNetworkLayer
 {
 	public OutputLayer(int _neuronCount, int _inputCount)
