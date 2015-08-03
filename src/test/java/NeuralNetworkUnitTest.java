@@ -13,7 +13,7 @@ public class NeuralNetworkUnitTest
     @Test
     public void OneOneOne()
     {
-        InputLayer inputLayer = new InputLayer(1, 1);
+        InputLayer inputLayer = new InputLayer(1);
         LinkedList<HiddenLayer> hiddenLayers = new LinkedList<>();
         hiddenLayers.add(new HiddenLayer(1, 1));
         OutputLayer outputLayer = new OutputLayer(1, 1);
@@ -41,7 +41,7 @@ public class NeuralNetworkUnitTest
     @Test
     public void OneTwoOne()
     {
-        InputLayer inputLayer = new InputLayer(1, 1);
+        InputLayer inputLayer = new InputLayer(1);
         LinkedList<HiddenLayer> hiddenLayers = new LinkedList<>();
         hiddenLayers.add(new HiddenLayer(2, 1));
         OutputLayer outputLayer = new OutputLayer(1, 2);

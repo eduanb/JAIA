@@ -12,7 +12,7 @@ public class RandomWalk
     private double max = Double.MIN_VALUE;
     Random random;
 
-    RandomWalk(double min, double max)
+    public RandomWalk(double min, double max)
     {
         this.min = min;
         this.max = max;
@@ -20,14 +20,14 @@ public class RandomWalk
         random.setSeed(System.currentTimeMillis());
     }
 
-    NeuralNetwork InitialiseNetwork(NeuralNetwork neuralNetwork)
+    public NeuralNetwork InitialiseNetwork(NeuralNetwork neuralNetwork)
     {
         LinkedList<HiddenLayer> hiddenLayers = neuralNetwork.getHiddenLayers();
         for (HiddenLayer hl : hiddenLayers)
         {
             for(int i = 0; i < hl.getInputCount(); i++)
             {
-                for(int j = 0; j < hl.getNeuronCount(); i++)
+                for(int j = 0; j < hl.getNeuronCount(); j++)
                 {
                     boolean randomDirection = random.nextBoolean();
                     double weight = getRandomEdge(randomDirection);
@@ -40,7 +40,7 @@ public class RandomWalk
         OutputLayer outputLayer = neuralNetwork.getOutputLayer();
         for(int i = 0; i < outputLayer.getInputCount(); i++)
         {
-            for(int j = 0; j < outputLayer.getNeuronCount(); i++)
+            for(int j = 0; j < outputLayer.getNeuronCount(); j++)
             {
                 boolean randomDirection = random.nextBoolean();
                 double weight = getRandomEdge(randomDirection);
@@ -51,42 +51,55 @@ public class RandomWalk
         return neuralNetwork;
     }
 
-    NeuralNetwork AbsoluteStep(NeuralNetwork neuralNetwork, double stepSize)
+    public NeuralNetwork AbsoluteStep(NeuralNetwork neuralNetwork, double stepSize)
     {
         double delta = stepSize;
-        return updateWeights(neuralNetwork, delta);
+        return updateWeight(neuralNetwork, delta);
     }
 
-    NeuralNetwork RelativeStep(NeuralNetwork neuralNetwork, double stepSize)
+    public NeuralNetwork RelativeStep(NeuralNetwork neuralNetwork, double stepSize)
     {
         double delta = stepSize;
-        return updateWeights(neuralNetwork, delta);
+        return updateWeight(neuralNetwork, delta);
     }
 
-    private NeuralNetwork updateWeights(NeuralNetwork neuralNetwork, double delta)
+    private NeuralNetwork updateWeight(NeuralNetwork neuralNetwork, double delta)
     {
-        LinkedList<HiddenLayer> hiddenLayers = neuralNetwork.getHiddenLayers();
-        for (HiddenLayer hl : hiddenLayers)
+        int totalWeights = neuralNetwork.getTotalWeights();
+        int weightpos = random.nextInt(totalWeights + 1);
+        for(HiddenLayer hiddenLayer: neuralNetwork.getHiddenLayers())
         {
-            for(int i = 0; i < hl.getInputCount(); i++)
+            int weightsInLayer = hiddenLayer.getNeuronCount() * hiddenLayer.getInputCount();
+            if(weightpos < weightsInLayer)
             {
-                for(int j = 0; j < hl.getNeuronCount(); i++)
+                for(int k = 0; k < hiddenLayer.getInputCount(); k++)
                 {
-                    boolean newDirection = newDirection(hl.getRandomWalkDirection()[i][j], hl.getWeights()[i][j]);
-                    hl.getRandomWalkDirection()[i][j] = newDirection;
-                    hl.getWeights()[i][j] = updateWeight(newDirection, hl.getWeights()[i][j], delta);
+                    for (int l = 0; l < hiddenLayer.getNeuronCount(); l++)
+                    {
+                        weightpos--;
+                        if (weightpos == 0)
+                        {
+                            hiddenLayer.setRandomWalkDirection(k, l, newDirection(hiddenLayer.getRandomWalkDirection()[k][l], hiddenLayer.getWeights()[k][l]));
+                            hiddenLayer.setWeight(k, l, updateWeight(hiddenLayer.getRandomWalkDirection()[k][l], hiddenLayer.getWeights()[k][l], delta));
+                            return neuralNetwork;
+                        }
+                    }
                 }
-            }
-        }
 
-        OutputLayer outputLayer = neuralNetwork.getOutputLayer();
-        for(int i = 0; i < outputLayer.getInputCount(); i++)
+                return neuralNetwork;
+            }
+            weightpos -= weightsInLayer;
+        }
+        for(int k = 0; k < neuralNetwork.getOutputLayer().getInputCount(); k++)
         {
-            for(int j = 0; j < outputLayer.getNeuronCount(); i++)
+            for (int l = 0; l < neuralNetwork.getOutputLayer().getNeuronCount(); l++)
             {
-                boolean newDirection = newDirection(outputLayer.getRandomWalkDirection()[i][j], outputLayer.getWeights()[i][j]);
-                outputLayer.getRandomWalkDirection()[i][j] = newDirection;
-                outputLayer.getWeights()[i][j] = updateWeight(newDirection, outputLayer.getWeights()[i][j], delta);
+                weightpos--;
+                if (weightpos == 0)
+                {
+                    neuralNetwork.getOutputLayer().setRandomWalkDirection(k, l, newDirection(neuralNetwork.getOutputLayer().getRandomWalkDirection()[k][l], neuralNetwork.getOutputLayer().getWeights()[k][l]));
+                    neuralNetwork.getOutputLayer().setWeight(k, l, updateWeight(neuralNetwork.getOutputLayer().getRandomWalkDirection()[k][l], neuralNetwork.getOutputLayer().getWeights()[k][l], delta));
+                }
             }
         }
         return neuralNetwork;
@@ -100,7 +113,7 @@ public class RandomWalk
     }
     private double updateWeight(boolean in, double current, double delta)
     {
-        return in ? (current + delta) : (current - delta);
+        return in ? (current - delta) : (current + delta);
     }
 
     private double getRandomEdge(boolean in)

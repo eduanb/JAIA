@@ -2,9 +2,9 @@ package Algorithm;
 
 public class InputLayer extends NeuralNetworkLayer
 {
-	public InputLayer(int _neuronCount, int _inputCount)
+	public InputLayer(int _neuronCount)
 	{
-		super(_neuronCount, _inputCount);
+		super(_neuronCount, 1);
 	}
 
 	@Override

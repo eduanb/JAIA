@@ -46,6 +46,22 @@ public abstract class NeuralNetworkLayer
 		}
 		return result;
 	}
+	public double[] getStepOutput(double[] input)
+	{
+		double[] result = new double[neuronCount];
+		for(int i = 0; i < neuronCount;i++)
+		{
+			double temp = 0;
+			for(int j = 0; j < input.length; j++)
+			{
+				temp += input[j] * weights[j][i];
+			}
+			result[i] = sigmoid(temp);
+			if(result[i] >= 0.5) result[i] = 0.9;
+			else result[i] = 0.1;
+		}
+		return result;
+	}
 	public void setAllWeights(double value)
 	{
 		for (double[] d : weights)
@@ -91,5 +107,9 @@ public abstract class NeuralNetworkLayer
 	{
 		return weights;
 	}
-	
+
+	public void setWeight(int x, int y, double value) { weights[x][y] = value;}
+
+	public void setRandomWalkDirection(int x, int y, boolean value) { randomWalkDirection[x][y] = value;}
+
 }
