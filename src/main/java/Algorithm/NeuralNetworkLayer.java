@@ -57,8 +57,8 @@ public abstract class NeuralNetworkLayer
 				temp += input[j] * weights[j][i];
 			}
 			result[i] = sigmoid(temp);
-			if(result[i] >= 0.5) result[i] = 0.9;
-			else result[i] = 0.1;
+			if(result[i] >= 0.5) result[i] = 1;
+			else result[i] = 0;
 		}
 		return result;
 	}

@@ -58,7 +58,7 @@ public class NeuralNetwork
 		return outputLayer.getStepOutput(lastOuts);
 	}
 
-	public double getTrainingError(LinkedList<double[]> inputs, LinkedList<double[]> outputs)
+	public double getTrainingError(LinkedList<double[]> inputs, LinkedList<double[]> expectedOutputs)
 	{
 		double result = 0;
 		for(int i = 0; i < inputs.size(); i++)
@@ -67,14 +67,30 @@ public class NeuralNetwork
 			double[] stepOutputs = getStepOutput(inputs.get(i));
 			for(int j = 0; j < stepOutputs.length; j++)
 			{
-				if(stepOutputs[j] != outputs.get(i)[j])
+				if(stepOutputs[j] != expectedOutputs.get(i)[j])
 				{
 					result -= 1;
 					break;
 				}
 			}
 		}
-		return result;
+		if(result == 0) return 0;
+		return result/inputs.size();
+	}
+
+	public double getMeanSquareError(LinkedList<double[]> inputs, LinkedList<double[]> expectedOutputs)
+	{
+		double result = 0;
+		for(int i = 0; i < inputs.size(); i++) //for each pattern
+		{
+			double[] temp = inputs.get(i); // for speedup
+			double[] actualOutputs = getOutput(temp);
+			for(int j = 0; j < actualOutputs.length; j++)
+			{
+				result += Math.pow((temp[j] - actualOutputs[j]), 2);
+			}
+		}
+		return result/inputs.size();
 	}
 
     public void setAllWeights(double w)
@@ -89,16 +105,16 @@ public class NeuralNetwork
 
 	public void printNetwork()
 	{
-		double[][] inWeights = inputLayer.getWeights();
-		System.out.print("inputWeights:");
-		for (double[] d : inWeights)
-		{
-			for (int i = 0; i < d.length; i++)
-			{
-				System.out.print(d[i] + ", ");
-			}
-		}
-		System.out.println();
+//		double[][] inWeights = inputLayer.getWeights();
+//		System.out.print("inputWeights:");
+//		for (double[] d : inWeights)
+//		{
+//			for (int i = 0; i < d.length; i++)
+//			{
+//				System.out.print(d[i] + ", ");
+//			}
+//		}
+//		System.out.println();
 		System.out.print("hiddenWeights:");
         for(HiddenLayer hiddenLayer : hiddenLayers)
         {
