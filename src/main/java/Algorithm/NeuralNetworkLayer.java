@@ -9,7 +9,7 @@ public abstract class NeuralNetworkLayer
 	 * Total Neurons in previous layer
 	 */
 	int inputCount;
-	double[][] weights = null;
+	private double[][] weights = null;
 
 	public int getNeuronCount() {
 		return neuronCount;
@@ -110,6 +110,10 @@ public abstract class NeuralNetworkLayer
 
 	public void setWeight(int x, int y, double value) { weights[x][y] = value;}
 
-	public void setRandomWalkDirection(int x, int y, boolean value) { randomWalkDirection[x][y] = value;}
+	public void setSpecificRandomWalkDirection(int x, int y, boolean value) { randomWalkDirection[x][y] = value;}
+	public void setRandomWalkDirection(boolean[][] value) { randomWalkDirection = value;}
 
+	public void setWeights(double[][] weights) {
+		this.weights = weights;
+	}
 }
