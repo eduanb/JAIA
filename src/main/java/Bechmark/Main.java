@@ -12,6 +12,7 @@ import java.util.LinkedList;
  */
 public class Main {
     static final int ITERATIONS = 10000;
+    static final int FDC_COUNT = 10;
     static final int RETRY = 30;
     static final double STEP_SIZE = 0.04;
     static final double SEARCH_SPACE_BOUNDARY = 2;
@@ -95,55 +96,129 @@ public class Main {
         return NN;
     }
 
+    static void doFDC(PatternFile patternFile)
+    {
+        NeuralNetwork[] NNs = new NeuralNetwork[FDC_COUNT];
+        double[] fitnessError = new double[FDC_COUNT];
+        double[] fitnessMSE = new double[FDC_COUNT];
+        double bestError = Double.MAX_VALUE;
+        double bestMSE = Double.MAX_VALUE;
+        NeuralNetwork bestNNError = null;
+        NeuralNetwork bestNNMSE = null;
+        for(int i = 0; i < FDC_COUNT; i++)
+        {
+            LinkedList<HiddenLayer> hl = new LinkedList<HiddenLayer>();
+            hl.add(new HiddenLayer(4, 4));
+            NNs[i] = new NeuralNetwork(new InputLayer(4),hl,new OutputLayer(3,4));
+            NNs[i].randomiseAllWeights(SEARCH_SPACE_BOUNDARY);
+            fitnessMSE[i] = NNs[i].getMeanSquareError(patternFile.getInputs(), patternFile.getOutputs());
+            fitnessError[i] = NNs[i].getTrainingError(patternFile.getInputs(), patternFile.getOutputs());
+            if(fitnessError[i] < bestError)
+            {
+                bestNNError = NNs[i];
+                bestError = fitnessError[i];
+            }
+            if(fitnessMSE[i] < bestMSE)
+            {
+                bestNNMSE = NNs[i];
+                bestMSE = fitnessMSE[i];
+            }
+        }
+        double totalError = 0;
+        double totalMSE = 0;
+        double[] ErrorDist = new double[FDC_COUNT];
+        double[] MSEDist = new double[FDC_COUNT];
+        for(int i = 0; i < FDC_COUNT; i++)
+        {
+            ErrorDist[i] = euclideanDist(NNs[i].getAllWeights(),bestNNError.getAllWeights());
+            totalError += (fitnessError[i] - bestError) * ErrorDist[i];
+
+            MSEDist[i] =  euclideanDist(NNs[i].getAllWeights(),bestNNMSE.getAllWeights());
+            totalMSE += (fitnessMSE[i] - bestMSE) * MSEDist[i];
+        }
+        totalError /= FDC_COUNT;
+        totalMSE /= FDC_COUNT;
+
+        double FDCMSE = totalMSE / (std_dev(fitnessMSE) * std_dev(MSEDist));
+        double FDCError = totalError / (std_dev(fitnessError) * std_dev(ErrorDist));
+
+        System.out.println(FDCMSE);
+        System.out.println(FDCError);
+    }
+
+    private static double euclideanDist(LinkedList<Double> a, LinkedList<Double> b)
+    {
+        double Sum = 0.0;
+        for(int i=0;i<a.size();i++) {
+            Sum = Sum + Math.pow((a.get(i)-b.get(i)),2.0);
+        }
+        return Math.sqrt(Sum);
+    }
+
+    public static double std_dev(double a[]) {
+        double sum = 0;
+        double sq_sum = 0;
+        for(int i = 0; i < a.length; ++i) {
+            sum += a[i];
+        }
+        double mean = sum / a.length;
+        for(int i = 0; i < a.length; ++i) {
+            sq_sum += Math.pow(a[i] - mean,2);
+        }
+        sq_sum = sq_sum/(a.length);
+        return Math.sqrt(sq_sum);
+    }
+
     public static void main(String[] args)
     {
         long start = System.nanoTime();
-        RandomWalk randomWalk = new RandomWalk(-SEARCH_SPACE_BOUNDARY, SEARCH_SPACE_BOUNDARY);
+//        RandomWalk randomWalk = new RandomWalk(-SEARCH_SPACE_BOUNDARY, SEARCH_SPACE_BOUNDARY);
         PatternFile iris = new PatternFile("benchmark/iris.csv",4,3);
-        //============================
-        stringBuilder = new StringBuilder();
-        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
-        NeuralNetwork NN1 = createNetwork1();
-        for(int i = 0; i < RETRY; i++) {
-            System.out.println("Run: " + i);
-            Run(i,NN1, iris, randomWalk);
-        }
-        printFile("4-4-3.csv",stringBuilder);
-        //============================
-
-        //============================
-        stringBuilder = new StringBuilder();
-        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
-        NeuralNetwork NN2 = createNetwork2();
-        for(int i = 0; i < RETRY; i++) {
-            System.out.println("Run: " + i);
-            Run(i,NN2, iris, randomWalk);
-        }
-        printFile("4-8-3.csv",stringBuilder);
-        //============================
-
-        //============================
-        stringBuilder = new StringBuilder();
-        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
-        NeuralNetwork NN3 = createNetwork3();
-        for(int i = 0; i < RETRY; i++) {
-            System.out.println("Run: " + i);
-            Run(i,NN3, iris, randomWalk);
-        }
-        printFile("4-2-2-3.csv",stringBuilder);
-        //============================
-
-        //============================
-        stringBuilder = new StringBuilder();
-        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
-        NeuralNetwork NN4 = createNetwork4();
-        for(int i = 0; i < RETRY; i++) {
-            System.out.println("Run: " + i);
-            Run(i,NN4, iris, randomWalk);
-        }
-        printFile("4-2-2-2-3.csv",stringBuilder);
-        //============================
-
+        doFDC(iris);
+//        //============================
+//        stringBuilder = new StringBuilder();
+//        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
+//        NeuralNetwork NN1 = createNetwork1();
+//        for(int i = 0; i < RETRY; i++) {
+//            System.out.println("Run: " + i);
+//            Run(i,NN1, iris, randomWalk);
+//        }
+//        printFile("4-4-3.csv",stringBuilder);
+//        //============================
+//
+//        //============================
+//        stringBuilder = new StringBuilder();
+//        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
+//        NeuralNetwork NN2 = createNetwork2();
+//        for(int i = 0; i < RETRY; i++) {
+//            System.out.println("Run: " + i);
+//            Run(i,NN2, iris, randomWalk);
+//        }
+//        printFile("4-8-3.csv",stringBuilder);
+//        //============================
+//
+//        //============================
+//        stringBuilder = new StringBuilder();
+//        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
+//        NeuralNetwork NN3 = createNetwork3();
+//        for(int i = 0; i < RETRY; i++) {
+//            System.out.println("Run: " + i);
+//            Run(i,NN3, iris, randomWalk);
+//        }
+//        printFile("4-2-2-3.csv",stringBuilder);
+//        //============================
+//
+//        //============================
+//        stringBuilder = new StringBuilder();
+//        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
+//        NeuralNetwork NN4 = createNetwork4();
+//        for(int i = 0; i < RETRY; i++) {
+//            System.out.println("Run: " + i);
+//            Run(i,NN4, iris, randomWalk);
+//        }
+//        printFile("4-2-2-2-3.csv",stringBuilder);
+//        //============================
+//
 
         long end = System.nanoTime();
         System.out.println("\nTotal Time: " + HelperFunctions.timeToString(end - start));

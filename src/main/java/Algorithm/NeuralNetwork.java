@@ -13,6 +13,17 @@ public class NeuralNetwork
         return totalWeights;
     }
 
+	public LinkedList<Double> getAllWeights()
+	{
+		LinkedList<Double> result = new LinkedList<>();
+		for(HiddenLayer hiddenLayer : hiddenLayers)
+		{
+			 result.addAll(hiddenLayer.getAllWeights());
+		}
+		result.addAll(outputLayer.getAllWeights());
+		return result;
+	}
+
     public NeuralNetwork(InputLayer inputLayer, LinkedList<HiddenLayer> hiddenLayers, OutputLayer outputLayer)
 	{
         this.inputLayer = inputLayer;
@@ -60,16 +71,16 @@ public class NeuralNetwork
 
 	public double getTrainingError(LinkedList<double[]> inputs, LinkedList<double[]> expectedOutputs)
 	{
-		double result = 0;
+		double result = inputs.size();
 		for(int i = 0; i < inputs.size(); i++)
 		{
-			result += 1;
+			result -= 1;
 			double[] stepOutputs = getStepOutput(inputs.get(i));
 			for(int j = 0; j < stepOutputs.length; j++)
 			{
 				if(stepOutputs[j] != expectedOutputs.get(i)[j])
 				{
-					result -= 1;
+					result += 1;
 					break;
 				}
 			}
@@ -95,13 +106,21 @@ public class NeuralNetwork
 
     public void setAllWeights(double w)
     {
-        inputLayer.setAllWeights(w);
         for(HiddenLayer hiddenLayer : hiddenLayers)
         {
             hiddenLayer.setAllWeights(w);
         }
         outputLayer.setAllWeights(w);
     }
+
+	public void randomiseAllWeights(double range)
+	{
+		for(HiddenLayer hiddenLayer : hiddenLayers)
+		{
+			hiddenLayer.randomizeAllWeightsToRange(range);
+		}
+		outputLayer.randomizeAllWeightsToRange(range);
+	}
 
 	public void printNetwork()
 	{

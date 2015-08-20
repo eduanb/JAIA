@@ -1,5 +1,6 @@
 package Algorithm;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 public abstract class NeuralNetworkLayer
@@ -24,6 +25,17 @@ public abstract class NeuralNetworkLayer
 	}
 
 	boolean[][] randomWalkDirection = null;
+
+	public LinkedList<Double> getAllWeights()
+	{
+		LinkedList<Double> result = new LinkedList<>();
+		for(int i = 0; i < neuronCount;i++) {
+			for (int j = 0; j < neuronCount; j++) {
+				result.add(weights[i][j]);
+			}
+		}
+		return result;
+	}
 
 	public NeuralNetworkLayer(int _neuronCount, int _inputCount)
 	{
@@ -77,6 +89,21 @@ public abstract class NeuralNetworkLayer
 	{
 		Random r = new Random(System.nanoTime());
 		double max = 1.0 / Math.sqrt(inputCount);
+		double min = -max;
+		for (double[] d : weights)
+		{
+			for (int i = 0; i < d.length; i++)
+			{
+				double weight = min + (max - min) * r.nextDouble();
+				d[i] = weight;
+			}
+		}
+	}
+
+	public void randomizeAllWeightsToRange(double range)
+	{
+		Random r = new Random(System.nanoTime());
+		double max = range;
 		double min = -max;
 		for (double[] d : weights)
 		{
