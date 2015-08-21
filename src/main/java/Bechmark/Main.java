@@ -126,7 +126,7 @@ public class Main {
         }
     }
 
-    private static void runManhatan(LinkedList<PatternFile> patternFiles)
+    private static void runManhattan(LinkedList<PatternFile> patternFiles)
     {
         ManhattanRandomWalk manhattanRandomWalk = new ManhattanRandomWalk(-SEARCH_SPACE_BOUNDARY, SEARCH_SPACE_BOUNDARY);
         LinkedList<NeuralNetwork> neuralNetworks = new LinkedList<>();
@@ -159,7 +159,7 @@ public class Main {
         LinkedList<PatternFile> patternFiles = new LinkedList<>();
         patternFiles.add( new PatternFile("benchmark/iris.csv",4,3));
         runFDC(patternFiles);
-        runManhatan(patternFiles);
+        runManhattan(patternFiles);
         long end = System.nanoTime();
         System.out.println("\nTotal Time: " + HelperFunctions.timeToString(end - start));
     }
