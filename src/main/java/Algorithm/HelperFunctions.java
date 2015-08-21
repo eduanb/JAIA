@@ -3,6 +3,7 @@ package Algorithm;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedList;
 
 /**
  * Created by eduan on 2015/03/04.
@@ -80,5 +81,36 @@ public class HelperFunctions
         {
             e.printStackTrace();
         }
+    }
+
+    public static double euclideanDist(LinkedList<Double> a, LinkedList<Double> b)
+    {
+        double Sum = 0.0;
+        for(int i=0;i<a.size();i++) {
+            Sum = Sum + Math.pow((a.get(i)-b.get(i)),2.0);
+        }
+        return Math.sqrt(Sum);
+    }
+
+    public static double std_dev(double a[]) {
+        double sum = 0;
+        double sq_sum = 0;
+        for(int i = 0; i < a.length; ++i) {
+            sum += a[i];
+        }
+        double mean = sum / a.length;
+        for(int i = 0; i < a.length; ++i) {
+            sq_sum += Math.pow(a[i] - mean,2);
+        }
+        sq_sum = sq_sum/(a.length);
+        return Math.sqrt(sq_sum);
+    }
+
+    public static double avarage(double a[]) {
+        double sum = 0;
+        for(int i = 0; i < a.length; ++i) {
+            sum += a[i];
+        }
+        return sum / a.length;
     }
 }

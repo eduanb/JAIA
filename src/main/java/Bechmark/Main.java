@@ -2,9 +2,6 @@ package Bechmark;
 
 import Algorithm.*;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 
 /**
@@ -12,7 +9,7 @@ import java.util.LinkedList;
  */
 public class Main {
     static final int ITERATIONS = 10000;
-    static final int FDC_COUNT = 10;
+    static final int FDC_COUNT = 10000;
     static final int RETRY = 30;
     static final double STEP_SIZE = 0.04;
     static final double SEARCH_SPACE_BOUNDARY = 2;
@@ -124,66 +121,54 @@ public class Main {
                 bestMSE = fitnessMSE[i];
             }
         }
-        double totalError = 0;
-        double totalMSE = 0;
+
         double[] ErrorDist = new double[FDC_COUNT];
         double[] MSEDist = new double[FDC_COUNT];
+
         for(int i = 0; i < FDC_COUNT; i++)
         {
-            ErrorDist[i] = euclideanDist(NNs[i].getAllWeights(),bestNNError.getAllWeights());
-            totalError += (fitnessError[i] - bestError) * ErrorDist[i];
+            ErrorDist[i] = HelperFunctions.euclideanDist(NNs[i].getAllWeights(), bestNNError.getAllWeights());
 
-            MSEDist[i] =  euclideanDist(NNs[i].getAllWeights(),bestNNMSE.getAllWeights());
-            totalMSE += (fitnessMSE[i] - bestMSE) * MSEDist[i];
+            MSEDist[i] =  HelperFunctions.euclideanDist(NNs[i].getAllWeights(),bestNNMSE.getAllWeights());
         }
+        double errorAvgDist = HelperFunctions.avarage(ErrorDist);
+        double MSEAvgDist = HelperFunctions.avarage(MSEDist);
+        double errorAvgFit = HelperFunctions.avarage(fitnessError);
+        double MSEAvgFit = HelperFunctions.avarage(fitnessMSE);
+        double totalError = 0;
+        double totalMSE = 0;
+        for(int i = 0; i < FDC_COUNT; i++)
+        {
+            totalError += (fitnessError[i] - errorAvgFit) * (ErrorDist[i] - errorAvgDist);
+
+            totalMSE += (fitnessMSE[i] - MSEAvgFit) * (MSEDist[i] - MSEAvgDist);
+        }
+
         totalError /= FDC_COUNT;
         totalMSE /= FDC_COUNT;
 
-        double FDCMSE = totalMSE / (std_dev(fitnessMSE) * std_dev(MSEDist));
-        double FDCError = totalError / (std_dev(fitnessError) * std_dev(ErrorDist));
+        double FDCMSE = totalMSE / (HelperFunctions.std_dev(fitnessMSE) * HelperFunctions.std_dev(MSEDist));
+        double FDCError = totalError / (HelperFunctions.std_dev(fitnessError) * HelperFunctions.std_dev(ErrorDist));
 
         System.out.println(FDCMSE);
         System.out.println(FDCError);
     }
 
-    private static double euclideanDist(LinkedList<Double> a, LinkedList<Double> b)
-    {
-        double Sum = 0.0;
-        for(int i=0;i<a.size();i++) {
-            Sum = Sum + Math.pow((a.get(i)-b.get(i)),2.0);
-        }
-        return Math.sqrt(Sum);
-    }
-
-    public static double std_dev(double a[]) {
-        double sum = 0;
-        double sq_sum = 0;
-        for(int i = 0; i < a.length; ++i) {
-            sum += a[i];
-        }
-        double mean = sum / a.length;
-        for(int i = 0; i < a.length; ++i) {
-            sq_sum += Math.pow(a[i] - mean,2);
-        }
-        sq_sum = sq_sum/(a.length);
-        return Math.sqrt(sq_sum);
-    }
-
     public static void main(String[] args)
     {
         long start = System.nanoTime();
-//        RandomWalk randomWalk = new RandomWalk(-SEARCH_SPACE_BOUNDARY, SEARCH_SPACE_BOUNDARY);
+        RandomWalk randomWalk = new RandomWalk(-SEARCH_SPACE_BOUNDARY, SEARCH_SPACE_BOUNDARY);
         PatternFile iris = new PatternFile("benchmark/iris.csv",4,3);
-        doFDC(iris);
-//        //============================
-//        stringBuilder = new StringBuilder();
-//        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
-//        NeuralNetwork NN1 = createNetwork1();
-//        for(int i = 0; i < RETRY; i++) {
-//            System.out.println("Run: " + i);
-//            Run(i,NN1, iris, randomWalk);
-//        }
-//        printFile("4-4-3.csv",stringBuilder);
+//        doFDC(iris);
+        //============================
+        stringBuilder = new StringBuilder();
+        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
+        NeuralNetwork NN1 = createNetwork1();
+        for(int i = 0; i < RETRY; i++) {
+            System.out.println("Run: " + i);
+            Run(i,NN1, iris, randomWalk);
+        }
+        HelperFunctions.printFile(OUTPUT_DIR + "4-4-3.csv",stringBuilder.toString());
 //        //============================
 //
 //        //============================
@@ -223,18 +208,5 @@ public class Main {
         long end = System.nanoTime();
         System.out.println("\nTotal Time: " + HelperFunctions.timeToString(end - start));
     }
-    private static void printFile(String fileName, StringBuilder stringBuilder)
-    {
-        PrintWriter writer = null;
-        try {
-            writer = new PrintWriter(OUTPUT_DIR + fileName, "UTF-8");
-            writer.println(stringBuilder);
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
-    }
 }
