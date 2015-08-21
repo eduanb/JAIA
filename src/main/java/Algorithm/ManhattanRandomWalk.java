@@ -3,9 +3,9 @@ package Algorithm;
 /**
  * Created by Eduan on 2015-07-28.
  */
-public class ManhatanRandomWalk extends AbstractRandomWalk
+public class ManhattanRandomWalk extends AbstractRandomWalk
 {
-    public ManhatanRandomWalk(double min, double max)
+    public ManhattanRandomWalk(double min, double max)
     {
         super(min, max);
     }

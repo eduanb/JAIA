@@ -16,9 +16,9 @@ public class Main {
     static final String OUTPUT_DIR = "C:\\Users\\Eduan\\Google Drive\\Universiteit\\2015\\COS 700 - Research Methods and Project\\Results\\iris\\2;0.04\\";
     static StringBuilder stringBuilder;
 
-    private static void Run(int itereation, NeuralNetwork NN,PatternFile patternFile, RandomWalk randomWalk)
+    private static void doManhattan(int itereation, NeuralNetwork NN,PatternFile patternFile, ManhattanRandomWalk manhattanRandomWalk)
     {
-        randomWalk.InitialiseNetwork(NN);
+        manhattanRandomWalk.InitialiseNetwork(NN);
 
         double totalMeanSquare = 0.0;
         double totalStep = 0.0;
@@ -39,7 +39,7 @@ public class Main {
             totalMeanSquare += gradientsMSE[i];
             step = tempStep;
             mean = tempMean;
-            NN = randomWalk.AbsoluteStep(NN, STEP_SIZE);
+            NN = manhattanRandomWalk.AbsoluteStep(NN, STEP_SIZE);
         }
         avgMSE = totalMeanSquare / ITERATIONS;
         avgStep = totalStep / ITERATIONS;
@@ -55,42 +55,7 @@ public class Main {
         stdevMSE = Math.sqrt(stdevMSE);
         stdevStep = Math.sqrt(stdevStep);
 
-        stringBuilder.append("\n"+itereation+","+avgMSE+","+stdevMSE+","+avgStep+","+stdevStep);
-    }
-
-    private static NeuralNetwork createNetwork1()
-    {
-        LinkedList<HiddenLayer> hl = new LinkedList<HiddenLayer>();
-        hl.add(new HiddenLayer(4, 4));
-        NeuralNetwork NN = new NeuralNetwork(new InputLayer(4),hl,new OutputLayer(3,4));
-        return NN;
-    }
-
-    private static NeuralNetwork createNetwork2()
-    {
-        LinkedList<HiddenLayer> hl = new LinkedList<HiddenLayer>();
-        hl.add(new HiddenLayer(8, 4));
-        NeuralNetwork NN = new NeuralNetwork(new InputLayer(4),hl,new OutputLayer(3,8));
-        return NN;
-    }
-
-    private static NeuralNetwork createNetwork3()
-    {
-        LinkedList<HiddenLayer> hl = new LinkedList<HiddenLayer>();
-        hl.add(new HiddenLayer(2, 4));
-        hl.add(new HiddenLayer(2, 2));
-        NeuralNetwork NN = new NeuralNetwork(new InputLayer(4),hl,new OutputLayer(3,2));
-        return NN;
-    }
-
-    private static NeuralNetwork createNetwork4()
-    {
-        LinkedList<HiddenLayer> hl = new LinkedList<HiddenLayer>();
-        hl.add(new HiddenLayer(2, 4));
-        hl.add(new HiddenLayer(2, 2));
-        hl.add(new HiddenLayer(2, 2));
-        NeuralNetwork NN = new NeuralNetwork(new InputLayer(4),hl,new OutputLayer(3,2));
-        return NN;
+        stringBuilder.append("\n" + itereation + "," + avgMSE + "," + stdevMSE + "," + avgStep + "," + stdevStep);
     }
 
     static void doFDC(PatternFile patternFile,NeuralNetwork[] NNs)
@@ -160,61 +125,73 @@ public class Main {
             doFDC(patternFile, NNs);
         }
     }
+
+    private static void runManhatan(LinkedList<PatternFile> patternFiles)
+    {
+        ManhattanRandomWalk manhattanRandomWalk = new ManhattanRandomWalk(-SEARCH_SPACE_BOUNDARY, SEARCH_SPACE_BOUNDARY);
+        LinkedList<NeuralNetwork> neuralNetworks = new LinkedList<>();
+        neuralNetworks.add(createNetwork1());
+        neuralNetworks.add(createNetwork2());
+        neuralNetworks.add(createNetwork3());
+        neuralNetworks.add(createNetwork4());
+        LinkedList<String> nnNames = new LinkedList<>();
+        nnNames.add("4-4-3");
+        nnNames.add("4-8-3");
+        nnNames.add("4-2-2-3");
+        nnNames.add("4-2-2-2-3");
+        for(PatternFile patternFile : patternFiles) {
+            int pos = 0;
+            for(NeuralNetwork nn : neuralNetworks) {
+                stringBuilder = new StringBuilder();
+                stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
+                for (int i = 0; i < RETRY; i++) {
+                    System.out.println("Run: " + i);
+                    doManhattan(i, nn, patternFile, manhattanRandomWalk);
+                }
+                HelperFunctions.printFile(OUTPUT_DIR + nnNames.get(pos++) +".csv", stringBuilder.toString());
+            }
+        }
+    }
+
     public static void main(String[] args)
     {
         long start = System.nanoTime();
         LinkedList<PatternFile> patternFiles = new LinkedList<>();
         patternFiles.add( new PatternFile("benchmark/iris.csv",4,3));
         runFDC(patternFiles);
-
-        RandomWalk randomWalk = new RandomWalk(-SEARCH_SPACE_BOUNDARY, SEARCH_SPACE_BOUNDARY);
-        //============================
-//        stringBuilder = new StringBuilder();
-//        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
-//        NeuralNetwork NN1 = createNetwork1();
-//        for(int i = 0; i < RETRY; i++) {
-//            System.out.println("Run: " + i);
-//            Run(i,NN1, iris, randomWalk);
-//        }
-//        HelperFunctions.printFile(OUTPUT_DIR + "4-4-3.csv",stringBuilder.toString());
-//        //============================
-//
-//        //============================
-//        stringBuilder = new StringBuilder();
-//        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
-//        NeuralNetwork NN2 = createNetwork2();
-//        for(int i = 0; i < RETRY; i++) {
-//            System.out.println("Run: " + i);
-//            Run(i,NN2, iris, randomWalk);
-//        }
-//        printFile("4-8-3.csv",stringBuilder);
-//        //============================
-//
-//        //============================
-//        stringBuilder = new StringBuilder();
-//        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
-//        NeuralNetwork NN3 = createNetwork3();
-//        for(int i = 0; i < RETRY; i++) {
-//            System.out.println("Run: " + i);
-//            Run(i,NN3, iris, randomWalk);
-//        }
-//        printFile("4-2-2-3.csv",stringBuilder);
-//        //============================
-//
-//        //============================
-//        stringBuilder = new StringBuilder();
-//        stringBuilder.append("sep=,\nRUN,G(avg)(MSE),G(dev)(MSE),G(avg)(STEP),G(dev)(STEP)");
-//        NeuralNetwork NN4 = createNetwork4();
-//        for(int i = 0; i < RETRY; i++) {
-//            System.out.println("Run: " + i);
-//            Run(i,NN4, iris, randomWalk);
-//        }
-//        printFile("4-2-2-2-3.csv",stringBuilder);
-//        //============================
-//
-
+        runManhatan(patternFiles);
         long end = System.nanoTime();
         System.out.println("\nTotal Time: " + HelperFunctions.timeToString(end - start));
     }
 
+    private static NeuralNetwork createNetwork1()
+    {
+        LinkedList<HiddenLayer> hl = new LinkedList<>();
+        hl.add(new HiddenLayer(4, 4));
+        return new NeuralNetwork(new InputLayer(4),hl,new OutputLayer(3,4));
+    }
+
+    private static NeuralNetwork createNetwork2()
+    {
+        LinkedList<HiddenLayer> hl = new LinkedList<>();
+        hl.add(new HiddenLayer(8, 4));
+        return new NeuralNetwork(new InputLayer(4),hl,new OutputLayer(3,8));
+    }
+
+    private static NeuralNetwork createNetwork3()
+    {
+        LinkedList<HiddenLayer> hl = new LinkedList<>();
+        hl.add(new HiddenLayer(2, 4));
+        hl.add(new HiddenLayer(2, 2));
+        return new NeuralNetwork(new InputLayer(4),hl,new OutputLayer(3,2));
+    }
+
+    private static NeuralNetwork createNetwork4()
+    {
+        LinkedList<HiddenLayer> hl = new LinkedList<>();
+        hl.add(new HiddenLayer(2, 4));
+        hl.add(new HiddenLayer(2, 2));
+        hl.add(new HiddenLayer(2, 2));
+        return new NeuralNetwork(new InputLayer(4),hl,new OutputLayer(3,2));
+    }
 }
