@@ -1,6 +1,11 @@
 package Bechmark;
 
 import Algorithm.*;
+import Algorithm.NeuralNetwork.HiddenLayer;
+import Algorithm.NeuralNetwork.InputLayer;
+import Algorithm.NeuralNetwork.NeuralNetwork;
+import Algorithm.NeuralNetwork.OutputLayer;
+import Algorithm.RandomWalk.ManhattanRandomWalk;
 
 import java.util.LinkedList;
 

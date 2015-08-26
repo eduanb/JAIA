@@ -1,4 +1,8 @@
-package Algorithm;
+package Algorithm.RandomWalk;
+
+import Algorithm.NeuralNetwork.HiddenLayer;
+import Algorithm.NeuralNetwork.NeuralNetwork;
+import Algorithm.NeuralNetwork.OutputLayer;
 
 import java.util.LinkedList;
 import java.util.Random;

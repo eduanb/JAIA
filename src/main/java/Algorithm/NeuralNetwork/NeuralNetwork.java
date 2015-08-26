@@ -1,4 +1,4 @@
-package Algorithm;
+package Algorithm.NeuralNetwork;
 
 import java.util.LinkedList;
 

@@ -1,4 +1,7 @@
-package Algorithm;
+package Algorithm.RandomWalk;
+
+import Algorithm.NeuralNetwork.HiddenLayer;
+import Algorithm.NeuralNetwork.NeuralNetwork;
 
 /**
  * Created by Eduan on 2015-07-28.
