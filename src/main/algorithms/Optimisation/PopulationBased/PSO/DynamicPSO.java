@@ -1,10 +1,12 @@
-package pso;
+package algorithms.Optimisation.PopulationBased.PSO;
 
 // this is the heart of the PSO program
 // the code is for 2-dimensional space problem
 // but you can easily modify it to solve higher dimensional space problem
 
-import benchmark.ProblemSet;
+
+
+import Optimisation.BenchmarkFunctions.ProblemSet;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package AI.SEARCH.GA;
+package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
 public class GeneticAlgorithm
 {

@@ -1,4 +1,4 @@
-package Algorithm.NeuralNetwork;
+package algorithms.NeuralNetwork.FeedForward;
 
 import java.util.LinkedList;
 import java.util.Random;

@@ -1,11 +1,13 @@
-package Bechmark;
+package RandomWalk;
 
-import Algorithm.*;
-import Algorithm.NeuralNetwork.HiddenLayer;
-import Algorithm.NeuralNetwork.InputLayer;
-import Algorithm.NeuralNetwork.NeuralNetwork;
-import Algorithm.NeuralNetwork.OutputLayer;
-import Algorithm.RandomWalk.ManhattanRandomWalk;
+
+import algorithms.NeuralNetwork.FeedForward.HiddenLayer;
+import algorithms.NeuralNetwork.FeedForward.InputLayer;
+import algorithms.NeuralNetwork.FeedForward.NeuralNetwork;
+import algorithms.NeuralNetwork.FeedForward.OutputLayer;
+import algorithms.RandomWalk.ManhattanRandomWalk;
+import utils.FileIO;
+import utils.HelperFunctions;
 
 import java.util.LinkedList;
 
@@ -21,7 +23,7 @@ public class Main {
     static final String OUTPUT_DIR = "C:\\Users\\Eduan\\Google Drive\\Universiteit\\2015\\COS 700 - Research Methods and Project\\Results\\iris\\2;0.04\\";
     static StringBuilder stringBuilder;
 
-    private static void doManhattan(int itereation, NeuralNetwork NN,PatternFile patternFile, ManhattanRandomWalk manhattanRandomWalk)
+    private static void doManhattan(int itereation, NeuralNetwork NN, PatternFile patternFile, ManhattanRandomWalk manhattanRandomWalk)
     {
         manhattanRandomWalk.InitialiseNetwork(NN);
 
@@ -95,7 +97,7 @@ public class Main {
         {
             ErrorDist[i] = HelperFunctions.euclideanDist(NNs[i].getAllWeights(), bestNNError.getAllWeights());
 
-            MSEDist[i] =  HelperFunctions.euclideanDist(NNs[i].getAllWeights(),bestNNMSE.getAllWeights());
+            MSEDist[i] =  HelperFunctions.euclideanDist(NNs[i].getAllWeights(), bestNNMSE.getAllWeights());
         }
         double errorAvgDist = HelperFunctions.avarage(ErrorDist);
         double MSEAvgDist = HelperFunctions.avarage(MSEDist);
@@ -153,7 +155,7 @@ public class Main {
                     System.out.println("Run: " + i);
                     doManhattan(i, nn, patternFile, manhattanRandomWalk);
                 }
-                HelperFunctions.printFile(OUTPUT_DIR + nnNames.get(pos++) +".csv", stringBuilder.toString());
+                FileIO.printFile(OUTPUT_DIR + nnNames.get(pos++) + ".csv", stringBuilder.toString());
             }
         }
     }

@@ -1,10 +1,10 @@
-package EXAMPLE.SODUKU;
+package Optimisation;
 
-import AI.SEARCH.GA.Chromosome;
-import AI.SEARCH.GA.FitnessFunction;
-import AI.SEARCH.GA.IntegerChromosome;
-import AI.SEARCH.GA.RangedIntegerChromosome;
-import UTILS.FileIO;
+import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.Chromosome;
+import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.FitnessFunction;
+import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.IntegerChromosome;
+import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.RangedIntegerChromosome;
+import utils.FileIO;
 
 import java.io.File;
 import java.util.HashSet;
@@ -18,7 +18,7 @@ public class SodokuFit implements FitnessFunction
     int[][] board;
     public SodokuFit(File sodokuFile)
     {
-        board = FileIO.Read2DArrayAsInt(sodokuFile,";");
+        board = FileIO.Read2DArrayAsInt(sodokuFile, ";");
     }
 
     public double calculateFitness(IntegerChromosome chromosone) {

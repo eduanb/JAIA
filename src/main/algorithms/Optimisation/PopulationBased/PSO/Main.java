@@ -1,13 +1,8 @@
-package pso;
+package algorithms.Optimisation.PopulationBased.PSO;
+
+import Optimisation.BenchmarkFunctions.*;
 
 import java.util.LinkedList;
-
-import benchmark.Bohachevsky1Problem;
-import benchmark.ColvilleProblem;
-import benchmark.EasomProblem;
-import benchmark.ProblemSet;
-import benchmark.SphericalProblem;
-import benchmark.TwoDimentionMathProblem;
 
 public class Main
 {

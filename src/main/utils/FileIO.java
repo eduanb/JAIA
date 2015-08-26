@@ -1,4 +1,4 @@
-package UTILS;
+package utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class FileIO
 {
-    public void printFile(String FileName, String content)
+    public static void printFile(String FileName, String content)
     {
         PrintWriter writer;
         try
@@ -136,7 +136,7 @@ public class FileIO
         return (String[]) result.toArray();
     }
 
-    public String[][] Read2DArray(String fileName, String separator)
+    public static String[][] Read2DArray(String fileName, String separator)
     {
         return  Read2DArray(new File(fileName), separator);
     }
@@ -161,7 +161,7 @@ public class FileIO
         return (String[][]) result.toArray();
     }
 
-    public int[][] Read2DArrayAsInt(String fileName, String separator)
+    public static int[][] Read2DArrayAsInt(String fileName, String separator)
     {
         return  Read2DArrayAsInt(new File(fileName), separator);
     }

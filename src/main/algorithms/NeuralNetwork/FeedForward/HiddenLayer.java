@@ -1,4 +1,4 @@
-package Algorithm.NeuralNetwork;
+package algorithms.NeuralNetwork.FeedForward;
 
 public class HiddenLayer extends NeuralNetworkLayer
 {

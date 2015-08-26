@@ -1,4 +1,4 @@
-package Algorithm;
+package utils;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -58,29 +58,6 @@ public class HelperFunctions
         }
         text.append(ns + " ns");
         return text.toString();
-    }
-
-    /**
-     * Helper function to write files
-     *
-     * @param FileName
-     *            The file to write to
-     * @param content
-     *            Content to write in the file
-     */
-    public static void printFile(String FileName, String content)
-    {
-        PrintWriter writer;
-        try
-        {
-            writer = new PrintWriter(FileName, "UTF-8");
-            writer.print(content);
-            writer.close();
-        }
-        catch (FileNotFoundException | UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     public static double euclideanDist(LinkedList<Double> a, LinkedList<Double> b)

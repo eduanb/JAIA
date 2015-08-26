@@ -1,6 +1,6 @@
-package pso;
+package algorithms.Optimisation.PopulationBased.PSO;
 
-import benchmark.ProblemSet;
+import Optimisation.BenchmarkFunctions.ProblemSet;
 
 public class Particle
 {

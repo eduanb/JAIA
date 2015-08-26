@@ -1,12 +1,12 @@
-package benchmark;
+package Optimisation.BenchmarkFunctions;
+
+import algorithms.Optimisation.PopulationBased.PSO.Location;
+import algorithms.Optimisation.PopulationBased.PSO.PSOConstants;
+import algorithms.Optimisation.PopulationBased.PSO.Particle;
+import algorithms.Optimisation.PopulationBased.PSO.Velocity;
 
 import java.util.LinkedList;
 import java.util.Random;
-
-import pso.Location;
-import pso.PSOConstants;
-import pso.Particle;
-import pso.Velocity;
 
 public class SphericalProblem implements ProblemSet, PSOConstants
 {

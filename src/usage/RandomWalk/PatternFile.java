@@ -1,4 +1,4 @@
-package Bechmark;
+package RandomWalk;
 
 import java.io.File;
 import java.io.FileNotFoundException;

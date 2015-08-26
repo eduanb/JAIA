@@ -1,6 +1,6 @@
-package EXAMPLE.SODUKU;
+package Optimisation;
 
-import AI.SEARCH.GA.*;
+import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.*;
 
 import java.io.File;
 

@@ -1,7 +1,7 @@
-import Algorithm.NeuralNetwork.HiddenLayer;
-import Algorithm.NeuralNetwork.InputLayer;
-import Algorithm.NeuralNetwork.NeuralNetwork;
-import Algorithm.NeuralNetwork.OutputLayer;
+import algorithms.NeuralNetwork.FeedForward.HiddenLayer;
+import algorithms.NeuralNetwork.FeedForward.InputLayer;
+import algorithms.NeuralNetwork.FeedForward.NeuralNetwork;
+import algorithms.NeuralNetwork.FeedForward.OutputLayer;
 import org.junit.Test;
 
 import java.util.LinkedList;

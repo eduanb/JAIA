@@ -1,9 +1,9 @@
-package benchmark;
+package Optimisation.BenchmarkFunctions;
+
+import algorithms.Optimisation.PopulationBased.PSO.Location;
+import algorithms.Optimisation.PopulationBased.PSO.Particle;
 
 import java.util.LinkedList;
-
-import pso.Location;
-import pso.Particle;
 
 public abstract interface ProblemSet
 {

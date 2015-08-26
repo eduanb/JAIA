@@ -1,4 +1,4 @@
-package pso;
+package algorithms.Optimisation.PopulationBased.PSO;
 
 public class Velocity
 {
