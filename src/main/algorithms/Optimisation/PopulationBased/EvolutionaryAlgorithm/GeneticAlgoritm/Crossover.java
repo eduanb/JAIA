@@ -1,6 +1,10 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
+import algorithms.Optimisation.Solution.Solution;
+import algorithms.Optimisation.Solution.SolutionEmptyException;
+import algorithms.Optimisation.Solution.SolutionTypeException;
+
 public interface Crossover
 {
-	public Chromosome[] crossover(Chromosome[] population, double crossoverRate) throws ChromosomeTypeException, ChromosomeEmptyException;
+	public Solution[] crossover(Solution[] population, double crossoverRate) throws SolutionTypeException, SolutionEmptyException;
 }

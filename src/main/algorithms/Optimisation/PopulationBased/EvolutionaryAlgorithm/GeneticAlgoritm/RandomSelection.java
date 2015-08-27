@@ -1,5 +1,7 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
+import algorithms.Optimisation.Solution.Solution;
+
 import java.util.Date;
 import java.util.Random;
 
@@ -8,9 +10,9 @@ public class RandomSelection implements SelectionStrategy
 	int c = 0;
 
 	@Override
-	public Chromosome[] select(Chromosome[] solutionArray)
+	public Solution[] select(Solution[] solutionArray)
 	{
-		Chromosome[] parents = new Chromosome[2];
+		Solution[] parents = new Solution[2];
 		int parent1 = -1;
 		int parent2 = -1;
 		// c makes sure random doesn't always return the same 2 random parents

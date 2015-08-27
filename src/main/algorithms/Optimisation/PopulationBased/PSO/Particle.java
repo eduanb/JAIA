@@ -1,7 +1,5 @@
 package algorithms.Optimisation.PopulationBased.PSO;
 
-import Optimisation.BenchmarkFunctions.ProblemSet;
-
 public class Particle
 {
 	private double fitnessValue;

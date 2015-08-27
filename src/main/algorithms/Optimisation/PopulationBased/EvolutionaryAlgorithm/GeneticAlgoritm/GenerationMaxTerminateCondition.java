@@ -1,5 +1,7 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
+import algorithms.Optimisation.Solution.Solution;
+
 public class GenerationMaxTerminateCondition implements TerminationCondition
 {
 	private int maximum;
@@ -10,7 +12,7 @@ public class GenerationMaxTerminateCondition implements TerminationCondition
 	}
 
 	@Override
-	public boolean TerminationCondition(Chromosome[] population, int iterationCount)
+	public boolean TerminationCondition(Solution[] population, int iterationCount)
 	{
 		return iterationCount >= maximum;
 	}

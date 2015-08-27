@@ -1,53 +1,57 @@
 package Optimisation;
 
 import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.*;
+import algorithms.Optimisation.Solution.JavaSolutionSorter;
+import algorithms.Optimisation.Solution.Solution;
+import algorithms.Optimisation.Solution.SolutionEmptyException;
+import algorithms.Optimisation.Solution.SolutionTypeException;
 
 import java.io.File;
 
 public class Main
 {
 
-	public static void main(String[] args) throws ChromosomeEmptyException, ChromosomeTypeException
+	public static void main(String[] args) throws SolutionEmptyException, SolutionTypeException
 	{
 		double crossoverRate = 0.5;
 		double mutationRate = 0.5;
 		// Create GA
-		SelectionStrategy selectionStrategy = new TournamentSelection(new JavaChromosomeSorter(),3);
+		SelectionStrategy selectionStrategy = new TournamentSelection(new JavaSolutionSorter(),3);
 		Crossover crossover = new RandomOnePointCrossover(selectionStrategy);
 		Mutate mutate = new RandomMutate();
 		GeneticAlgorithm GA = new GeneticAlgorithm(crossover, mutate);
 
-		// Create chromosomes
-		Chromosome[] chromosomes = new Chromosome[30];
+		// Create solutions
+		Solution[] solutions = new Solution[30];
 		File file = new File("JAIA/board1.txt");
 		System.out.println(file.getAbsolutePath());
 		SodokuFit sodokuFit = new SodokuFit(file);
 		int size = sodokuFit.getSizeOfSolution();
 		for(int i = 0; i < 30; i++)
 		{
-			chromosomes[i] =  new RangedIntegerChromosome(size, sodokuFit,  1, 9);
-			chromosomes[i].randomizeChromosome();
+			solutions[i] =  new RangedIntegerSolution(size, sodokuFit,  1, 9);
+			solutions[i].randomizeSolution();
 		}
-		System.out.println("AVG:" + fitAvg(chromosomes));
-		chromosomes = GA.runUntilCondition(chromosomes, crossoverRate,mutationRate, new GenerationMaxTerminateCondition(100));
-		//chromosomes = GA.nextGeneration(chromosomes,crossoverRate,mutationRate);
+		System.out.println("AVG:" + fitAvg(solutions));
+		solutions = GA.runUntilCondition(solutions, crossoverRate,mutationRate, new GenerationMaxTerminateCondition(100));
+		//solutions = GA.nextGeneration(solutions,crossoverRate,mutationRate);
 		double bestfit = 0;
 		int bestpos = 0;
 		for(int i = 0; i < 30; i++)
 		{
-			if(chromosomes[i].getFitness() > bestfit)
+			if(solutions[i].getFitness() > bestfit)
 			{
-				bestfit = chromosomes[i].getFitness();
+				bestfit = solutions[i].getFitness();
 				bestpos = i;
 			}
 		}
-		System.out.println("AVG:" + fitAvg(chromosomes));
+		System.out.println("AVG:" + fitAvg(solutions));
 		System.out.println("Best:" + bestfit);
-		sodokuFit.printBoard(chromosomes[1]);
+		sodokuFit.printBoard(solutions[1]);
 		System.out.println();
-		sodokuFit.printBoard(chromosomes[0]);
+		sodokuFit.printBoard(solutions[0]);
 	}
-	 static double fitAvg(Chromosome[] c)
+	 static double fitAvg(Solution[] c)
 	{
 		double total = 0;
 		for(int i = 0; i < c.length; i ++)
@@ -56,7 +60,7 @@ public class Main
 			{
 				total += c[i].getFitness();
 			}
-			catch (ChromosomeEmptyException e)
+			catch (SolutionEmptyException e)
 			{
 				e.printStackTrace();
 			}

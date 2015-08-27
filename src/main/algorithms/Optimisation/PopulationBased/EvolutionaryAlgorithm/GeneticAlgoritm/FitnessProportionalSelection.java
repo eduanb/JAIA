@@ -1,5 +1,9 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
+import algorithms.Optimisation.Solution.Solution;
+import algorithms.Optimisation.Solution.SolutionEmptyException;
+import algorithms.Optimisation.Solution.SolutionSorter;
+
 import java.util.Date;
 import java.util.Random;
 
@@ -7,20 +11,20 @@ public class FitnessProportionalSelection implements SelectionStrategy
 {
 	Random random;
 	int c;
-	ChromosomeSorter sorter;
+	SolutionSorter sorter;
 
-	public FitnessProportionalSelection(ChromosomeSorter sorter)
+	public FitnessProportionalSelection(SolutionSorter sorter)
 	{
 		random = new Random();
 		this.sorter = sorter;
 	}
 
 	@Override
-	public Chromosome[] select(Chromosome[] chromosomeArray) throws ChromosomeEmptyException
+	public Solution[] select(Solution[] solutionArray) throws SolutionEmptyException
 	{
-		sorter.sortAscending(chromosomeArray);
-		double[] probability = getProbability(chromosomeArray);
-		Chromosome[] result = new Chromosome[2];
+		sorter.sortAscending(solutionArray);
+		double[] probability = getProbability(solutionArray);
+		Solution[] result = new Solution[2];
 		c++;
 		random.setSeed(new Date().getTime() + c);
 
@@ -32,8 +36,8 @@ public class FitnessProportionalSelection implements SelectionStrategy
 			parent2 = getParentIndex(probability, random.nextDouble());
 		} while (parent1 == parent2);
 
-		result[0] = chromosomeArray[parent1];
-		result[1] = chromosomeArray[parent2];
+		result[0] = solutionArray[parent1];
+		result[1] = solutionArray[parent2];
 		return result;
 	}
 
@@ -51,17 +55,17 @@ public class FitnessProportionalSelection implements SelectionStrategy
 		return index;
 	}
 
-	private double[] getProbability(Chromosome[] chromosomeArray) throws ChromosomeEmptyException
+	private double[] getProbability(Solution[] solutionArray) throws SolutionEmptyException
 	{
-		double[] result = new double[chromosomeArray.length];
+		double[] result = new double[solutionArray.length];
 		// calculate the totalFitness of all the solutions in s
 		float totalFitness = 0;
-		for (int i = 0; i < chromosomeArray.length; i++)
-			totalFitness += chromosomeArray[i].getFitness();
+		for (int i = 0; i < solutionArray.length; i++)
+			totalFitness += solutionArray[i].getFitness();
 
-		for (int i = 0; i < chromosomeArray.length; i++)
+		for (int i = 0; i < solutionArray.length; i++)
 		{
-			result[i] = chromosomeArray[i].getFitness() / totalFitness;
+			result[i] = solutionArray[i].getFitness() / totalFitness;
 			if (i != 0)
 				result[i] = result[i] + result[i - 1];
 		}

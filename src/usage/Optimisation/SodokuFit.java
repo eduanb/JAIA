@@ -1,9 +1,8 @@
 package Optimisation;
 
-import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.Chromosome;
-import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.FitnessFunction;
-import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.IntegerChromosome;
-import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.RangedIntegerChromosome;
+import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.RangedIntegerSolution;
+import algorithms.Optimisation.Solution.Solution;
+import algorithms.Optimisation.Solution.IntegerSolution;
 import utils.FileIO;
 
 import java.io.File;
@@ -21,7 +20,7 @@ public class SodokuFit implements FitnessFunction
         board = FileIO.Read2DArrayAsInt(sodokuFile, ";");
     }
 
-    public double calculateFitness(IntegerChromosome chromosone) {
+    public double calculateFitness(IntegerSolution chromosone) {
         //create temp board
         int c = 0;
         int[][] tempBoard = new int[board.length][board.length];
@@ -47,7 +46,7 @@ public class SodokuFit implements FitnessFunction
         return fit;
     }
 
-    public void printBoard(Chromosome chromosome)
+    public void printBoard(Solution solution)
     {
         int[][] tempBoard = new int[board.length][board.length];
         int c = 0;
@@ -57,7 +56,7 @@ public class SodokuFit implements FitnessFunction
             {
                 if(board[i][j] == Integer.MIN_VALUE)
                 {
-                    tempBoard[i][j] = (int)chromosome.getGene(c++);
+                    tempBoard[i][j] = (int) solution.getVariable(c++);
                 }
                 else tempBoard[i][j] = board[i][j];
             }
@@ -99,9 +98,9 @@ public class SodokuFit implements FitnessFunction
     }
 
     @Override
-    public double calculateFitness(Chromosome chromosone) {
-        if(chromosone.getClass() != RangedIntegerChromosome.class)
+    public double calculateFitness(Solution chromosone) {
+        if(chromosone.getClass() != RangedIntegerSolution.class)
             return 0;
-        return calculateFitness((IntegerChromosome)chromosone);
+        return calculateFitness((IntegerSolution)chromosone);
     }
 }

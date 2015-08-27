@@ -1,15 +1,19 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
+import algorithms.Optimisation.Solution.Solution;
+import algorithms.Optimisation.Solution.SolutionEmptyException;
+import algorithms.Optimisation.Solution.SolutionSorter;
+
 import java.util.*;
 
 public class TournamentSelection implements SelectionStrategy
 {
 	Random random;
 	int c;
-	ChromosomeSorter sorter;
+	SolutionSorter sorter;
 	int size;
 
-	public TournamentSelection(ChromosomeSorter sorter, int size)
+	public TournamentSelection(SolutionSorter sorter, int size)
 	{
 		random = new Random();
 		this.sorter = sorter;
@@ -17,23 +21,23 @@ public class TournamentSelection implements SelectionStrategy
 	}
 
 	@Override
-	public Chromosome[] select(Chromosome[] chromosomeArray) throws ChromosomeEmptyException
+	public Solution[] select(Solution[] solutionArray) throws SolutionEmptyException
 	{
-		Chromosome[] tournament = pickNRandom(chromosomeArray, size);
-		Chromosome[] result = new Chromosome[2];
+		Solution[] tournament = pickNRandom(solutionArray, size);
+		Solution[] result = new Solution[2];
 		result[0] = tournament[0];
 		result[1] = tournament[1];
 		return result;
 	}
 
-	private Chromosome[] pickNRandom(Chromosome[] array, int n) {
+	private Solution[] pickNRandom(Solution[] array, int n) {
 
-		List<Chromosome> list = new ArrayList<>(array.length);
-		for (Chromosome chromosome : array)
-			list.add(chromosome);
+		List<Solution> list = new ArrayList<>(array.length);
+		for (Solution solution : array)
+			list.add(solution);
 		Collections.shuffle(list);
 
-		Chromosome[] answer = new Chromosome[n];
+		Solution[] answer = new Solution[n];
 		for (int i = 0; i < n; i++)
 			answer[i] = list.get(i);
 		sorter.sortAscending(answer);

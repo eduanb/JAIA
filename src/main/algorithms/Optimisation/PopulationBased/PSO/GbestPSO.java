@@ -97,7 +97,7 @@ public class GbestPSO implements PSO,PSOConstants
 			err = problemSet.evaluate(gBestLocation) - problemSet.getTargetValue(); // minimizing the functions means it's getting closer to 0
 
 //			System.out.println("ITERATION " + t + ": ");
-//			for (int j = 0; j < problemSet.getProblemDimention(); j++)
+//			for (int j = 0; j < problemSet.getProblemDimension(); j++)
 //			{
 //				System.out.println("     Best X" + (j + 1) + ": " + gBestLocation.getLoc()[j]);
 //			}

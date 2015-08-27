@@ -1,5 +1,9 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
+import algorithms.Optimisation.Solution.Solution;
+import algorithms.Optimisation.Solution.SolutionEmptyException;
+import algorithms.Optimisation.Solution.SolutionTypeException;
+
 public class GeneticAlgorithm
 {
 	Crossover crossover;
@@ -13,9 +17,9 @@ public class GeneticAlgorithm
 		this.iterationCount = 0;
 	}
 	
-	public Chromosome[] runUntilCondition(Chromosome[] population,double crossoverRate, double mutationRate, TerminationCondition ... conditions) throws ChromosomeTypeException, ChromosomeEmptyException
+	public Solution[] runUntilCondition(Solution[] population,double crossoverRate, double mutationRate, TerminationCondition ... conditions) throws SolutionTypeException, SolutionEmptyException
 	{
-		Chromosome[] result = population;
+		Solution[] result = population;
 		while(!terminateCondition(conditions,result,iterationCount))
 		{
 			iterationCount++;
@@ -25,7 +29,7 @@ public class GeneticAlgorithm
 		return result;
 	}
 
-	private boolean terminateCondition(TerminationCondition[] conditions, Chromosome[] population, int iterationCount)
+	private boolean terminateCondition(TerminationCondition[] conditions, Solution[] population, int iterationCount)
 	{
 		for(TerminationCondition t : conditions)
 		{

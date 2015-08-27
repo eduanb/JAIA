@@ -1,20 +1,22 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
-import java.util.Date;
-import java.util.Random;
+import algorithms.Optimisation.Solution.IntegerSolution;
+import algorithms.Optimisation.Solution.SolutionEmptyException;
 
-public class RangedIntegerChromosome extends IntegerChromosome
+import java.util.Date;
+
+public class RangedIntegerSolution extends IntegerSolution
 {
 	private int min = Integer.MIN_VALUE;
 	private int max = Integer.MAX_VALUE;
-	public RangedIntegerChromosome(int[] genes, FitnessFunction fitnessFunction, int min, int max)
+	public RangedIntegerSolution(int[] genes, FitnessFunction fitnessFunction, int min, int max)
 	{
 		super(genes,fitnessFunction);
 		this.min = min;
 		this.max = max;
 	}
 
-	public RangedIntegerChromosome(int size, FitnessFunction fitnessFunction, int min, int max)
+	public RangedIntegerSolution(int size, FitnessFunction fitnessFunction, int min, int max)
 	{
 		super(size, fitnessFunction);
 		this.min = min;
@@ -25,10 +27,10 @@ public class RangedIntegerChromosome extends IntegerChromosome
 	 * Randomizes the solution to any values
 	 */
 	@Override
-	public void randomizeChromosome() throws ChromosomeEmptyException
+	public void randomizeSolution() throws SolutionEmptyException
 	{
 		if (genes == null || genes.length == 0)
-			throw new ChromosomeEmptyException();
+			throw new SolutionEmptyException();
 		c++;
 		random.setSeed(new Date().getTime() + c);
 		for (int i = 0; i < genes.length; i++)

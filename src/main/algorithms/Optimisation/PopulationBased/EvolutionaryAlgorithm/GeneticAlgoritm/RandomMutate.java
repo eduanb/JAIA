@@ -1,6 +1,7 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
-import java.util.Date;
+import algorithms.Optimisation.Solution.Solution;
+
 import java.util.Random;
 
 public class RandomMutate implements Mutate
@@ -12,7 +13,7 @@ public class RandomMutate implements Mutate
 		random = new Random();
 	}
 	@Override
-	public Chromosome[] mutate(Chromosome[] population, double mutationRate)
+	public Solution[] mutate(Solution[] population, double mutationRate)
 	{
 		c++;
 		for(int i = 0; i < population.length; i++)
