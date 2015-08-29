@@ -19,7 +19,7 @@ public class FitnessProportionalSelection implements SelectionStrategy
 	public SolutionList select(SolutionList solutionArray) throws SolutionException
 	{
 		double[] probability = getProbability(solutionArray);
-		SolutionList<Double> result = new SolutionList(2);
+		SolutionList result = new SolutionList(2);
 
 		int parent1 = getParentIndex(probability, random.nextDouble());
 		int parent2;

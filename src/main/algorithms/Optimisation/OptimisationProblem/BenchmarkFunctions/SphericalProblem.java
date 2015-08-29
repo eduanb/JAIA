@@ -1,9 +1,9 @@
-package Optimisation.BenchmarkFunctions;
+package algorithms.Optimisation.OptimisationProblem.BenchmarkFunctions;
 
-import algorithms.Optimisation.FitnessFunction;
+import algorithms.Optimisation.OptimisationProblem.OptimisationProblem;
 import algorithms.Optimisation.Solution.Solution;
 
-public class SphericalProblem implements FitnessFunction
+public class SphericalProblem implements OptimisationProblem
 {
 	private int problemDimention;
 	

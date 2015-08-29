@@ -1,5 +1,6 @@
 package algorithms.Optimisation;
 
+import algorithms.Optimisation.OptimisationProblem.OptimisationProblem;
 import algorithms.Optimisation.Solution.SolutionException;
 import algorithms.Optimisation.Solution.SolutionList;
 import algorithms.Optimisation.StoppingCondition.StoppingCondition;
@@ -14,7 +15,7 @@ public abstract class AbstractOptimisationAlgorithm {
     public int getIterationCount() {
         return iterationCount;
     }
-    public abstract SolutionList runUntilCondition(SolutionList population, FitnessFunction fitnessFunction, StoppingCondition... conditions) throws SolutionException;
+    public abstract SolutionList runUntilCondition(SolutionList population, OptimisationProblem optimisationProblem, StoppingCondition... conditions) throws SolutionException;
 
     protected boolean terminateCondition(StoppingCondition[] conditions, SolutionList population, int iterationCount)
     {

@@ -1,22 +1,21 @@
 package algorithms.Optimisation.Solution;
 
-import algorithms.Optimisation.FitnessFunction;
+import algorithms.Optimisation.OptimisationProblem.OptimisationProblem;
 
-import java.lang.reflect.Array;
 import java.util.Random;
 
-public class Solution<T>
+public class Solution
 {
-	protected T[] variables;
+	protected Double[] variables;
 	protected Random random;
 	protected double fitness = -1;
 	protected boolean isFitenssSet = false;
 
-	public T[] getVariables() {
+	public Double[] getVariables() {
 		return variables;
 	}
 
-	public void setVariable(int pos, T value)
+	public void setVariable(int pos, Double value)
 	{
 		variables[pos] = value;
 	}
@@ -26,15 +25,15 @@ public class Solution<T>
 		return variables.length;
 	}
 
-	public Solution(T[] variables)
+	public Solution(Double[] variables)
 	{
 		this.variables = variables;
 		random = new Random();
 	}
 
-	public Solution(Class<T> clazz, int numberOfVariables)
+	public Solution(int numberOfVariables)
 	{
-		this.variables = (T[]) Array.newInstance(clazz.getComponentType(), numberOfVariables);
+		this.variables = new Double[numberOfVariables];
 		random = new Random();
 	}
 
@@ -53,11 +52,11 @@ public class Solution<T>
 		return result.toString();
 	}
 
-	public void swop(Solution<T> other, int point) throws SolutionTypeException
+	public void swop(Solution other, int point) throws SolutionTypeException
 	{
 		for (int i = 0; i < point; i++)
 		{
-			T temp = this.variables[i];
+			Double temp = this.variables[i];
 			this.variables[i] = other.variables[i];
 			other.variables[i] = temp;
 		}
@@ -73,14 +72,14 @@ public class Solution<T>
 		return fitness;
 	}
 
-	public double calculateFitness(FitnessFunction ff)
+	public double calculateFitness(OptimisationProblem ff)
 	{
 		this.fitness = ff.evaluate(this);
 		this.isFitenssSet = true;
 		return this.fitness;
 	}
 
-	public T getVariable(int position)
+	public Double getVariable(int position)
 	{
 		return variables[position];
 	}

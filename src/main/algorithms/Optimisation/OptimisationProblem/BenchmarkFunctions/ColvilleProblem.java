@@ -1,9 +1,9 @@
-package Optimisation.BenchmarkFunctions;
+package algorithms.Optimisation.OptimisationProblem.BenchmarkFunctions;
 
-import algorithms.Optimisation.FitnessFunction;
+import algorithms.Optimisation.OptimisationProblem.OptimisationProblem;
 import algorithms.Optimisation.Solution.Solution;
 
-public class ColvilleProblem implements FitnessFunction
+public class ColvilleProblem implements OptimisationProblem
 {
 
 	@Override

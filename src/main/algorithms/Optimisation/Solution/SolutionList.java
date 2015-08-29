@@ -1,6 +1,6 @@
 package algorithms.Optimisation.Solution;
 
-import algorithms.Optimisation.FitnessFunction;
+import algorithms.Optimisation.OptimisationProblem.OptimisationProblem;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -8,9 +8,9 @@ import java.util.Comparator;
 /**
  * Created by eduan on 2015/08/26.
  */
-public class SolutionList<T> {
+public class SolutionList {
 
-    private Solution<T>[] solutions;
+    private Solution[] solutions;
     SolutionAscendingComparator AscComparator;
     SolutionDescendingComparator DescComparator;
     int size;
@@ -27,6 +27,14 @@ public class SolutionList<T> {
         count = 0;
     }
 
+    public void updateFitness(OptimisationProblem ff)
+    {
+        for(Solution solution:solutions)
+        {
+            solution.calculateFitness(ff);
+        }
+    }
+
     public Solution getSolution(int index)
     {
         return solutions[index];
@@ -37,7 +45,7 @@ public class SolutionList<T> {
         solutions[index] = solution;
     }
 
-    public SolutionList(Solution<T>[] solutions)
+    public SolutionList(Solution[] solutions)
     {
         this.solutions = solutions;
         AscComparator = new SolutionAscendingComparator();
@@ -46,27 +54,27 @@ public class SolutionList<T> {
         count = size;
     }
 
-    public SolutionList(Class<T> clazz, int size, int variableCount)
+    public SolutionList(Class clazz, int size, int variableCount)
     {
         this.size = size;
         solutions = new Solution[size];
         for(int i = 0; i < size; i++)
         {
-            solutions[0] = new Solution<T>(clazz, variableCount);
+            solutions[0] = new Solution(variableCount);
         }
         this.count = size;
         AscComparator = new SolutionAscendingComparator();
         DescComparator = new SolutionDescendingComparator();
     }
 
-    public void addSolution(Solution<T> solution) throws SolutionListFullException
+    public void addSolution(Solution solution) throws SolutionListFullException
     {
         if(count == size)
             throw new SolutionListFullException();
         solutions[count++] = solution;
     }
 
-    public Solution<T>[] getSolutions() {
+    public Solution[] getSolutions() {
         return solutions;
     }
 

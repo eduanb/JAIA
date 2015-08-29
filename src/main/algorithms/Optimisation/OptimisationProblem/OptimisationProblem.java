@@ -1,8 +1,8 @@
-package algorithms.Optimisation;
+package algorithms.Optimisation.OptimisationProblem;
 
 import algorithms.Optimisation.Solution.Solution;
 
-public abstract interface FitnessFunction
+public abstract interface OptimisationProblem
 {
 	public double evaluate(Solution solution);
 
