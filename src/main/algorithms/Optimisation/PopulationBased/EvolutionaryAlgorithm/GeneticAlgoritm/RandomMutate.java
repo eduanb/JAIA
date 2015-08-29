@@ -1,7 +1,10 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
 import algorithms.Optimisation.Solution.Solution;
+import algorithms.Optimisation.Solution.SolutionException;
 import algorithms.Optimisation.Solution.SolutionList;
+import algorithms.Optimisation.Solution.SolutionListFullException;
+
 import java.util.Random;
 
 public class RandomMutate implements Mutate
@@ -18,8 +21,8 @@ public class RandomMutate implements Mutate
 		this.max = max;
 	}
 	@Override
-	public SolutionList mutate(SolutionList population)
-	{
+	public SolutionList mutate(SolutionList population) throws SolutionException {
+		SolutionList result = new SolutionList(population.getSize());
 		for(Solution solution: population.getSolutions())
 		{
 			for(int i = 0; i < solution.getNumberOfVariables(); i++)
@@ -30,8 +33,9 @@ public class RandomMutate implements Mutate
 					solution.setVariable(i, value);
 				}
 			}
+			result.addSolution(solution);
 		}
-		return population;
+		return result;
 	}
 
 }

@@ -30,14 +30,14 @@ public class RandomOnePointCrossover implements Crossover
 			if(random.nextDouble() > crossoverRate)
 			{
 				//no crossover
-				offspring.setSolution(i++,parents.getSolution(0));
-				offspring.setSolution(i++,parents.getSolution(1));
+				offspring.setSolution(i++,parents.getSolution(0).clone());
+				offspring.setSolution(i++,parents.getSolution(1).clone());
 			}
 			else
 			{
 				//crossover
-				Solution Child1 = parents.getSolution(0);
-				Solution Child2 = parents.getSolution(1);
+				Solution Child1 = parents.getSolution(0).clone();
+				Solution Child2 = parents.getSolution(1).clone();
 				int point = random.nextInt(Child1.getNumberOfVariables());
 				Child1.swop(Child2,point);
 				offspring.setSolution(i++,Child1);

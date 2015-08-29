@@ -26,6 +26,7 @@ public class GeneticAlgorithm extends AbstractEvolutionaryAlgorithm
 			result =  crossover.crossover(result);
 			result = mutate.mutate(result);
 		}
+		result.updateFitness(optimisationProblem);
 		return result;
 	}
 }

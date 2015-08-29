@@ -20,6 +20,12 @@ public class Solution
 		variables[pos] = value;
 	}
 
+	@Override
+	public  Solution clone()
+	{
+		return new Solution(variables.clone());
+	}
+
 	public int getNumberOfVariables()
 	{
 		return variables.length;
