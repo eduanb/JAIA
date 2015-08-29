@@ -10,12 +10,17 @@ import java.util.Comparator;
  */
 public class SolutionList {
 
-    private Solution[] solutions;
-    SolutionAscendingComparator AscComparator;
-    SolutionDescendingComparator DescComparator;
-    int size;
-    int count;
+    protected Solution[] solutions;
+    protected SolutionAscendingComparator AscComparator;
+    protected SolutionDescendingComparator DescComparator;
+    protected int size;
+    protected int count;
 
+    SolutionList()
+    {
+        AscComparator = new SolutionAscendingComparator();
+        DescComparator = new SolutionDescendingComparator();
+    }
     public int getSize() {
         return size;
     }
@@ -25,11 +30,13 @@ public class SolutionList {
         this.size = size;
         solutions = new Solution[size];
         count = 0;
+        AscComparator = new SolutionAscendingComparator();
+        DescComparator = new SolutionDescendingComparator();
     }
 
     public void updateFitness(OptimisationProblem ff)
     {
-        for(Solution solution:solutions)
+        for(Solution solution : solutions)
         {
             solution.calculateFitness(ff);
         }
@@ -54,13 +61,13 @@ public class SolutionList {
         count = size;
     }
 
-    public SolutionList(Class clazz, int size, int variableCount)
+    public SolutionList(int size, int variableCount)
     {
         this.size = size;
         solutions = new Solution[size];
         for(int i = 0; i < size; i++)
         {
-            solutions[0] = new Solution(variableCount);
+            solutions[i] = new Solution(variableCount);
         }
         this.count = size;
         AscComparator = new SolutionAscendingComparator();
@@ -89,6 +96,26 @@ public class SolutionList {
         Arrays.sort(solutions, DescComparator);
     }
 
+    @Override
+    public String toString()
+    {
+        if (solutions == null || solutions.length == 0)
+            return "{}";
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < solutions.length; i++)
+        {
+            result.append(solutions[i].toString()).append(System.getProperty("line.separator"));
+        }
+        return result.toString();
+    }
+
+    public void initialiseList(double min, double max)
+    {
+        for(Solution solution : solutions)
+        {
+            solution.initialise(min,max);
+        }
+    }
     class SolutionAscendingComparator implements Comparator<Solution>
     {
         @Override

@@ -38,7 +38,7 @@ public class RandomOnePointCrossover implements Crossover
 				//crossover
 				Solution Child1 = parents.getSolution(0);
 				Solution Child2 = parents.getSolution(1);
-				int point = random.nextInt(population.getSize());
+				int point = random.nextInt(Child1.getNumberOfVariables());
 				Child1.swop(Child2,point);
 				offspring.setSolution(i++,Child1);
 				offspring.setSolution(i++,Child2);

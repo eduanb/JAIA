@@ -38,7 +38,6 @@ public abstract class AbstractPSO extends AbstractOptimisationAlgorithm
 	protected double getMomentum(int iteration)
 	{
 		return 1.0;
-		//W_UPPERBOUND - (((double) t) / MAX_ITERATION) * (W_UPPERBOUND - W_LOWERBOUND);
 	}
 
 	@Override

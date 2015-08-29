@@ -9,10 +9,10 @@ public class ColvilleProblem implements OptimisationProblem
 	@Override
 	public double evaluate(Solution solution)
 	{
-		double X1 = (Double) solution.getVariable(0);
-		double X2 = (Double) solution.getVariable(1);
-		double X3 = (Double) solution.getVariable(2);
-		double X4 = (Double) solution.getVariable(3);
+		double X1 = solution.getVariable(0);
+		double X2 = solution.getVariable(1);
+		double X3 = solution.getVariable(2);
+		double X4 = solution.getVariable(3);
 		double result = 100*Math.pow(X2 - Math.pow(X1,2), 2);
 		result += Math.pow(1 - X1, 2);
 		result += 90 * Math.pow(X4 - Math.pow(X3, 2), 2);

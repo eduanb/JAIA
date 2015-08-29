@@ -2,11 +2,11 @@ package algorithms.Optimisation.Solution;
 
 public class Particle extends Solution
 {
-	protected Double[] velocity;
+	protected double[] velocity;
 	protected double pbest;
-	protected Double[] bestPosition;
+	protected double[] bestPosition;
 
-	public void setVelocity(Double[] velocity) {
+	public void setVelocity(double[] velocity) {
 		this.velocity = velocity;
 	}
 
@@ -14,11 +14,11 @@ public class Particle extends Solution
 		this.pbest = pbest;
 	}
 
-	public void setBestPosition(Double[] bestPosition) {
+	public void setBestPosition(double[] bestPosition) {
 		this.bestPosition = bestPosition;
 	}
 
-	public Double[] getVelocity() {
+	public double[] getVelocity() {
 
 		return velocity;
 	}
@@ -27,7 +27,7 @@ public class Particle extends Solution
 		return pbest;
 	}
 
-	public Double[] getBestPosition() {
+	public double[] getBestPosition() {
 		return bestPosition;
 	}
 
@@ -36,7 +36,7 @@ public class Particle extends Solution
 		this.velocity[pos] = velocity;
 	}
 
-	public Particle(Double[] variables,Double velocities)
+	public Particle(double[] variables,double[] velocity)
 	{
 		super(variables);
 		this.variables = variables;
@@ -45,7 +45,7 @@ public class Particle extends Solution
 	public Particle(int numberOfVariables)
 	{
 		super(numberOfVariables);
-		velocity = new Double[numberOfVariables];
+		velocity = new double[numberOfVariables];
 	}
 
 	@Override

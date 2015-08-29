@@ -8,8 +8,8 @@ public class EasomProblem implements OptimisationProblem
 	@Override
 	public double evaluate(Solution solution)
 	{
-		Double X1 = (Double) solution.getVariable(0);
-		Double X2 = (Double) solution.getVariable(1);
+		Double X1 = solution.getVariable(0);
+		Double X2 = solution.getVariable(1);
 		return (-Math.cos(X1) * Math.cos(X1) * Math.pow(Math.E, (-Math.pow(X1 - Math.PI, 2) - Math.pow(X2 - Math.PI, 2))));
 	}
 

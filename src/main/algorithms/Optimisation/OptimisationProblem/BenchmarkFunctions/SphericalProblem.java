@@ -18,7 +18,7 @@ public class SphericalProblem implements OptimisationProblem
 		double result = 0;
 		for(int i = 0; i < problemDimention; i++)
 		{
-			result += (Double)solution.getVariable(i) * (Double)solution.getVariable(i);
+			result += solution.getVariable(i) * solution.getVariable(i);
 		}
 		return result;
 	}

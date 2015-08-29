@@ -6,12 +6,12 @@ import java.util.Random;
 
 public class Solution
 {
-	protected Double[] variables;
+	protected double[] variables;
 	protected Random random;
 	protected double fitness = -1;
 	protected boolean isFitenssSet = false;
 
-	public Double[] getVariables() {
+	public double[] getVariables() {
 		return variables;
 	}
 
@@ -25,7 +25,7 @@ public class Solution
 		return variables.length;
 	}
 
-	public Solution(Double[] variables)
+	public Solution(double[] variables)
 	{
 		this.variables = variables;
 		random = new Random();
@@ -33,7 +33,7 @@ public class Solution
 
 	public Solution(int numberOfVariables)
 	{
-		this.variables = new Double[numberOfVariables];
+		this.variables = new double[numberOfVariables];
 		random = new Random();
 	}
 
@@ -56,7 +56,7 @@ public class Solution
 	{
 		for (int i = 0; i < point; i++)
 		{
-			Double temp = this.variables[i];
+			double temp = this.variables[i];
 			this.variables[i] = other.variables[i];
 			other.variables[i] = temp;
 		}
@@ -82,5 +82,13 @@ public class Solution
 	public Double getVariable(int position)
 	{
 		return variables[position];
+	}
+
+	public void initialise(double min,double max)
+	{
+		for(int i = 0; i < getNumberOfVariables(); i++)
+		{
+			variables[i] = min + (random.nextDouble() * (max - min));
+		}
 	}
 }

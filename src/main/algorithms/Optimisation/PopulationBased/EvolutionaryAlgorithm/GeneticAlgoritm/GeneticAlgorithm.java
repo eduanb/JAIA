@@ -22,7 +22,7 @@ public class GeneticAlgorithm extends AbstractEvolutionaryAlgorithm
 		SolutionList result = population;
 		while(!terminateCondition(conditions,result,iterationCount++))
 		{
-			population.updateFitness(optimisationProblem);
+			result.updateFitness(optimisationProblem);
 			result =  crossover.crossover(result);
 			result = mutate.mutate(result);
 		}

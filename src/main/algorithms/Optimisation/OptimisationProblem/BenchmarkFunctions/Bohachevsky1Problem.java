@@ -8,8 +8,8 @@ public class Bohachevsky1Problem implements OptimisationProblem
 	@Override
 	public double evaluate(Solution solution)
 	{
-		Double X1 = (Double) solution.getVariable(0);
-		Double X2 = (Double) solution.getVariable(1);
+		Double X1 = solution.getVariable(0);
+		Double X2 = solution.getVariable(1);
 		double result = X1 * X1;
 		result += 2 * (X2 * X2);
 		result += -0.3 * Math.cos(3 * Math.PI * X1);
