@@ -1,32 +1,25 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
 import algorithms.Optimisation.Solution.Solution;
-import algorithms.Optimisation.Solution.SolutionEmptyException;
-import algorithms.Optimisation.Solution.SolutionSorter;
+import algorithms.Optimisation.Solution.SolutionException;
+import algorithms.Optimisation.Solution.SolutionList;
 
-import java.util.Date;
 import java.util.Random;
 
 public class FitnessProportionalSelection implements SelectionStrategy
 {
 	Random random;
-	int c;
-	SolutionSorter sorter;
 
-	public FitnessProportionalSelection(SolutionSorter sorter)
+	public FitnessProportionalSelection()
 	{
 		random = new Random();
-		this.sorter = sorter;
 	}
 
 	@Override
-	public Solution[] select(Solution[] solutionArray) throws SolutionEmptyException
+	public SolutionList select(SolutionList solutionArray) throws SolutionException
 	{
-		sorter.sortAscending(solutionArray);
 		double[] probability = getProbability(solutionArray);
-		Solution[] result = new Solution[2];
-		c++;
-		random.setSeed(new Date().getTime() + c);
+		SolutionList<Double> result = new SolutionList(2);
 
 		int parent1 = getParentIndex(probability, random.nextDouble());
 		int parent2;
@@ -36,8 +29,8 @@ public class FitnessProportionalSelection implements SelectionStrategy
 			parent2 = getParentIndex(probability, random.nextDouble());
 		} while (parent1 == parent2);
 
-		result[0] = solutionArray[parent1];
-		result[1] = solutionArray[parent2];
+		result.setSolution(0,solutionArray.getSolution(parent1));
+		result.setSolution(1,solutionArray.getSolution(parent2));
 		return result;
 	}
 
@@ -55,17 +48,17 @@ public class FitnessProportionalSelection implements SelectionStrategy
 		return index;
 	}
 
-	private double[] getProbability(Solution[] solutionArray) throws SolutionEmptyException
+	private double[] getProbability(SolutionList solutionArray) throws SolutionException
 	{
-		double[] result = new double[solutionArray.length];
+		double[] result = new double[solutionArray.getSize()];
 		// calculate the totalFitness of all the solutions in s
 		float totalFitness = 0;
-		for (int i = 0; i < solutionArray.length; i++)
-			totalFitness += solutionArray[i].getFitness();
+		for (Solution solution : solutionArray.getSolutions())
+			totalFitness += solution.getFitness();
 
-		for (int i = 0; i < solutionArray.length; i++)
+		for (int i = 0; i < solutionArray.getSize(); i++)
 		{
-			result[i] = solutionArray[i].getFitness() / totalFitness;
+			result[i] = solutionArray.getSolution(i).getFitness() / totalFitness;
 			if (i != 0)
 				result[i] = result[i] + result[i - 1];
 		}

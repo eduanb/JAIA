@@ -1,8 +1,8 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
 import algorithms.Optimisation.Solution.Solution;
-import algorithms.Optimisation.Solution.SolutionEmptyException;
-import algorithms.Optimisation.Solution.SolutionSorter;
+import algorithms.Optimisation.Solution.SolutionException;
+import algorithms.Optimisation.Solution.SolutionList;
 
 import java.util.*;
 
@@ -10,40 +10,37 @@ public class TournamentSelection implements SelectionStrategy
 {
 	Random random;
 	int c;
-	SolutionSorter sorter;
 	int size;
 
-	public TournamentSelection(SolutionSorter sorter, int size)
+	public TournamentSelection(int size)
 	{
 		random = new Random();
-		this.sorter = sorter;
 		this.size = size;
 	}
 
 	@Override
-	public Solution[] select(Solution[] solutionArray) throws SolutionEmptyException
+	public SolutionList select(SolutionList solutionArray) throws SolutionException
 	{
-		Solution[] tournament = pickNRandom(solutionArray, size);
-		Solution[] result = new Solution[2];
-		result[0] = tournament[0];
-		result[1] = tournament[1];
+		SolutionList tournament = pickNRandom(solutionArray, size);
+		tournament.sortAscending();
+		SolutionList result = new SolutionList(2);
+		result.setSolution(0,solutionArray.getSolution(0));
+		result.setSolution(1, solutionArray.getSolution(1));
 		return result;
 	}
 
-	private Solution[] pickNRandom(Solution[] array, int n) {
+	private SolutionList pickNRandom(SolutionList array, int n) {
 
-		List<Solution> list = new ArrayList<>(array.length);
-		for (Solution solution : array)
+		List<Solution> list = new ArrayList<>(array.getSize());
+		for (Solution solution : array.getSolutions())
 			list.add(solution);
 		Collections.shuffle(list);
 
-		Solution[] answer = new Solution[n];
+		SolutionList result = new SolutionList(n);
 		for (int i = 0; i < n; i++)
-			answer[i] = list.get(i);
-		sorter.sortAscending(answer);
+			result.setSolution(i,list.get(i));
 
-		return answer;
-
+		return result;
 	}
 
 }

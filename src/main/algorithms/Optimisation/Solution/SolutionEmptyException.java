@@ -1,11 +1,17 @@
 package algorithms.Optimisation.Solution;
 
-public class SolutionEmptyException extends Exception
+public class SolutionEmptyException extends SolutionException
 {
 	private static final long serialVersionUID = 1L;
+	private static final String ERROR = "Solution is empty.";
 	@Override
 	public String toString()
 	{
-		return "Solution is empty.";
+		return ERROR;
+	}
+
+	SolutionEmptyException()
+	{
+		super(ERROR);
 	}
 }

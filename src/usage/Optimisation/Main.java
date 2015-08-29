@@ -5,6 +5,7 @@ import algorithms.Optimisation.Solution.JavaSolutionSorter;
 import algorithms.Optimisation.Solution.Solution;
 import algorithms.Optimisation.Solution.SolutionEmptyException;
 import algorithms.Optimisation.Solution.SolutionTypeException;
+import algorithms.Optimisation.StoppingCondition.IterationMaxStoppingCondition;
 
 import java.io.File;
 
@@ -33,7 +34,7 @@ public class Main
 			solutions[i].randomizeSolution();
 		}
 		System.out.println("AVG:" + fitAvg(solutions));
-		solutions = GA.runUntilCondition(solutions, crossoverRate,mutationRate, new GenerationMaxTerminateCondition(100));
+		solutions = GA.runUntilCondition(solutions, crossoverRate,mutationRate, new IterationMaxStoppingCondition(100));
 		//solutions = GA.nextGeneration(solutions,crossoverRate,mutationRate);
 		double bestfit = 0;
 		int bestpos = 0;

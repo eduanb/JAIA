@@ -1,6 +1,5 @@
 package Optimisation;
 
-import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.RangedIntegerSolution;
 import algorithms.Optimisation.Solution.Solution;
 import algorithms.Optimisation.Solution.IntegerSolution;
 import utils.FileIO;

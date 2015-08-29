@@ -9,28 +9,33 @@ public class Solution<T>
 {
 	protected T[] variables;
 	protected Random random;
-	protected FitnessFunction fitnessFunction;
 	protected double fitness = -1;
+	protected boolean isFitenssSet = false;
+
+	public T[] getVariables() {
+		return variables;
+	}
+
+	public void setVariable(int pos, T value)
+	{
+		variables[pos] = value;
+	}
 
 	public int getNumberOfVariables()
 	{
 		return variables.length;
 	}
 
-	public Solution(T[] variables, FitnessFunction fitnessFunction)
+	public Solution(T[] variables)
 	{
 		this.variables = variables;
-		this.fitnessFunction = fitnessFunction;
 		random = new Random();
-		fitness = fitnessFunction.evaluate(this);
 	}
 
-	public Solution(Class<T> clazz, FitnessFunction fitnessFunction, int numberOfVariables)
+	public Solution(Class<T> clazz, int numberOfVariables)
 	{
 		this.variables = (T[]) Array.newInstance(clazz.getComponentType(), numberOfVariables);
-		this.fitnessFunction = fitnessFunction;
 		random = new Random();
-		fitness = fitnessFunction.evaluate(this);
 	}
 
 	@Override
@@ -59,13 +64,20 @@ public class Solution<T>
 
 	}
 
-	public double getFitness() throws SolutionEmptyException
+	public double getFitness() throws SolutionException
 	{
 		if (variables.length == 0)
 			throw new SolutionEmptyException();
-		if (fitness == -1)
-			fitness = fitnessFunction.evaluate(this);
+		if (!isFitenssSet)
+			throw  new SolutionFitnessNotSetException();
 		return fitness;
+	}
+
+	public double calculateFitness(FitnessFunction ff)
+	{
+		this.fitness = ff.evaluate(this);
+		this.isFitenssSet = true;
+		return this.fitness;
 	}
 
 	public T getVariable(int position)

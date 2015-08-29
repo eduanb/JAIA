@@ -1,8 +1,8 @@
 package algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm;
 
-import algorithms.Optimisation.Solution.Solution;
+import algorithms.Optimisation.Solution.SolutionList;
 
 public interface Mutate
 {
-	public Solution[] mutate(Solution[] population, double mutationRate);
+	public SolutionList mutate(SolutionList population);
 }
