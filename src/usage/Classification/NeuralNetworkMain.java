@@ -26,12 +26,12 @@ public class NeuralNetworkMain
     public static void main(String[] args)
     {
         try {
-            PatternFile trainingSet = MNISTReader.read("C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\train-images.idx3-ubyte", "C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\train-labels.idx1-ubyte");
             PatternFile generalisationSet = MNISTReader.read("C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\t10k-images.idx3-ubyte", "C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\t10k-labels.idx1-ubyte");
+            //PatternFile trainingSet = generalisationSet;
+            PatternFile trainingSet = MNISTReader.read("C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\train-images.idx3-ubyte", "C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\train-labels.idx1-ubyte");
             System.out.println("Done reading MNIST.");
             NeuralNetwork nn = createNetwork1(trainingSet.getNumIn(), trainingSet.getNumOut());
             OptimisationProblem optimisationProblem = new NeuralNetworkProblem(nn,trainingSet,generalisationSet);
-            //nn.randomiseAllWeights(optimisationProblem.getMin());
             StoppingCondition stoppingCondition = new IterationMaxStoppingCondition(ITERATION_MAX);
             GbestPSO pso = new GbestPSO(2,2);
             ParticleList particleList = new ParticleList(30,optimisationProblem.getProblemDimension());

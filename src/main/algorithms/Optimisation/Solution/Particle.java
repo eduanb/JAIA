@@ -46,6 +46,7 @@ public class Particle extends Solution
 	{
 		super(numberOfVariables);
 		velocity = new double[numberOfVariables];
+		bestPosition = new double[numberOfVariables];
 	}
 
 	@Override

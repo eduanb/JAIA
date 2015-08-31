@@ -1,6 +1,8 @@
 package algorithms.Optimisation.PopulationBased.PSO;
 
 import algorithms.Optimisation.Solution.Particle;
+import algorithms.Optimisation.Solution.Solution;
+import algorithms.Optimisation.Solution.SolutionException;
 import algorithms.Optimisation.Solution.SolutionList;
 
 /**
@@ -15,6 +17,17 @@ public class GbestPSO extends AbstractPSO {
 
     @Override
     public Particle getGBest(SolutionList swarm) {
-        return null;
+        Particle best = (Particle)swarm.getSolution(0);
+        try {
+            for (Solution solution : swarm.getSolutions()) {
+                Particle particle = (Particle) solution;
+                if (particle.getFitness() > best.getFitness())
+                    best = particle;
+            }
+        } catch (SolutionException e)
+        {
+            e.printStackTrace();
+        }
+        return best;
     }
 }
