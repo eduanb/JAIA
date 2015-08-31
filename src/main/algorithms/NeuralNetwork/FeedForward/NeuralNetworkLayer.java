@@ -29,7 +29,7 @@ public abstract class NeuralNetworkLayer
 	public LinkedList<Double> getAllWeights()
 	{
 		LinkedList<Double> result = new LinkedList<>();
-		for(int i = 0; i < neuronCount;i++) {
+		for(int i = 0; i < inputCount;i++) {
 			for (int j = 0; j < neuronCount; j++) {
 				result.add(weights[i][j]);
 			}

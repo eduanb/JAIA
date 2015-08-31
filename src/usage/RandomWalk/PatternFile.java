@@ -31,6 +31,24 @@ public class PatternFile {
         return inputs;
     }
 
+    public void addInput(double[] in)
+    {
+        this.inputs.add(in);
+    }
+
+    public void addOutput(double[] out)
+    {
+        this.outputs.add(out);
+    }
+
+    public PatternFile(int numIn, int numOut)
+    {
+        inputs = new LinkedList<>();
+        outputs = new LinkedList<>();
+        this.numIn = numIn;
+        this.numOut = numOut;
+    }
+
     public LinkedList<double[]> getOutputs() {
         return outputs;
     }

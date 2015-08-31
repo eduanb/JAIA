@@ -1,6 +1,7 @@
 package algorithms.NeuralNetwork.FeedForward;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class NeuralNetwork
 {
@@ -12,17 +13,6 @@ public class NeuralNetwork
     public int getTotalWeights() {
         return totalWeights;
     }
-
-	public LinkedList<Double> getAllWeights()
-	{
-		LinkedList<Double> result = new LinkedList<>();
-		for(HiddenLayer hiddenLayer : hiddenLayers)
-		{
-			 result.addAll(hiddenLayer.getAllWeights());
-		}
-		result.addAll(outputLayer.getAllWeights());
-		return result;
-	}
 
     public NeuralNetwork(InputLayer inputLayer, LinkedList<HiddenLayer> hiddenLayers, OutputLayer outputLayer)
 	{
@@ -89,7 +79,7 @@ public class NeuralNetwork
 		return result/inputs.size();
 	}
 
-	public double getMeanSquareError(LinkedList<double[]> inputs, LinkedList<double[]> expectedOutputs)
+	public double getMeanSquareError(List<double[]> inputs, LinkedList<double[]> expectedOutputs)
 	{
 		double result = 0;
 		for(int i = 0; i < inputs.size(); i++) //for each pattern
@@ -124,16 +114,6 @@ public class NeuralNetwork
 
 	public void printNetwork()
 	{
-//		double[][] inWeights = inputLayer.getWeights();
-//		System.out.print("inputWeights:");
-//		for (double[] d : inWeights)
-//		{
-//			for (int i = 0; i < d.length; i++)
-//			{
-//				System.out.print(d[i] + ", ");
-//			}
-//		}
-//		System.out.println();
 		System.out.print("hiddenWeights:");
         for(HiddenLayer hiddenLayer : hiddenLayers)
         {
@@ -157,5 +137,41 @@ public class NeuralNetwork
 			}
 		}
 		System.out.println();
+	}
+
+	public LinkedList<Double> getAllWeights()
+	{
+		LinkedList<Double> result = new LinkedList<>();
+		for(HiddenLayer hiddenLayer : hiddenLayers)
+		{
+			result.addAll(hiddenLayer.getAllWeights());
+		}
+		result.addAll(outputLayer.getAllWeights());
+		return result;
+	}
+
+	public void setWeights(double[] variables) {
+		int pos = 0;
+		for(HiddenLayer hiddenLayer : hiddenLayers)
+		{
+			double[][] hiddenLayerWeights = new double[hiddenLayer.getInputCount()][hiddenLayer.getNeuronCount()];
+			for(int i = 0; i < hiddenLayer.getInputCount(); i++)
+			{
+				for(int j = 0; j < hiddenLayer.getNeuronCount(); j++)
+				{
+					hiddenLayerWeights[i][j] = variables[pos++];
+				}
+			}
+			hiddenLayer.setWeights(hiddenLayerWeights);
+		}
+		double[][] outputWeights = new double[outputLayer.getInputCount()][outputLayer.getNeuronCount()];
+		for(int i = 0; i < outputLayer.getInputCount(); i++)
+		{
+			for(int j = 0; j < outputLayer.getNeuronCount(); j++)
+			{
+				outputWeights[i][j] = variables[pos++];
+			}
+		}
+		outputLayer.setWeights(outputWeights);
 	}
 }
