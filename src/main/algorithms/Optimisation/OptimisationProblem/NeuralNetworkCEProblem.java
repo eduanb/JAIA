@@ -1,10 +1,11 @@
 package algorithms.Optimisation.OptimisationProblem;
 
-import algorithms.NeuralNetwork.FeedForward.PatternFile;
 import algorithms.NeuralNetwork.FeedForward.NeuralNetwork;
+import algorithms.NeuralNetwork.FeedForward.PatternFile;
+import algorithms.Optimisation.OptimisationProblem.OptimisationProblem;
 import algorithms.Optimisation.Solution.Solution;
 
-public class NeuralNetworkProblem extends AbstractNeuralNetworkProblem
+public class NeuralNetworkCEProblem extends AbstractNeuralNetworkProblem
 {
 	private int problemDimention;
 
@@ -14,7 +15,7 @@ public class NeuralNetworkProblem extends AbstractNeuralNetworkProblem
 	private PatternFile generalisationSet;
 	private double range;
 
-	public NeuralNetworkProblem(NeuralNetwork neuralNetwork, PatternFile trainingSet, PatternFile generalisationSet, double range)
+	public NeuralNetworkCEProblem(NeuralNetwork neuralNetwork, PatternFile trainingSet, PatternFile generalisationSet,double range)
 	{
 		this.neuralNetwork = neuralNetwork;
 		this.problemDimention = neuralNetwork.getAllWeights().size();
@@ -40,7 +41,7 @@ public class NeuralNetworkProblem extends AbstractNeuralNetworkProblem
 
 	public double evaluate(NeuralNetwork nn)
 	{
-		double MSE = nn.getMeanSquareError(trainingSet.getInputs(), trainingSet.getOutputs());
+		double MSE = nn.getTrainingError(trainingSet.getInputs(), trainingSet.getOutputs());
 		return MSE;
 	}
 

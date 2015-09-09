@@ -1,4 +1,4 @@
-package RandomWalk;
+package algorithms.NeuralNetwork.FeedForward;
 
 import java.io.File;
 import java.io.FileNotFoundException;

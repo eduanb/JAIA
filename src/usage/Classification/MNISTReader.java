@@ -1,6 +1,6 @@
 package Classification;
 
-import RandomWalk.PatternFile;
+import algorithms.NeuralNetwork.FeedForward.PatternFile;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;

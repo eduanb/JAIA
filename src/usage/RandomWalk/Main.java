@@ -1,10 +1,7 @@
 package RandomWalk;
 
 
-import algorithms.NeuralNetwork.FeedForward.HiddenLayer;
-import algorithms.NeuralNetwork.FeedForward.InputLayer;
-import algorithms.NeuralNetwork.FeedForward.NeuralNetwork;
-import algorithms.NeuralNetwork.FeedForward.OutputLayer;
+import algorithms.NeuralNetwork.FeedForward.*;
 import algorithms.RandomWalk.ManhattanRandomWalk;
 import utils.FileIO;
 import utils.HelperFunctions;
@@ -20,7 +17,7 @@ public class Main {
     static final int RETRY = 30;
     static final double STEP_SIZE = 0.04;
     static final double SEARCH_SPACE_BOUNDARY = 2;
-    static final String OUTPUT_DIR = "C:\\Users\\Eduan\\Google Drive\\Universiteit\\2015\\COS 700 - Research Methods and Project\\Results\\iris\\2;0.04\\";
+    static final String OUTPUT_DIR = "C:\\Users\\Eduan\\Google Drive\\Universiteit\\2015\\COS 700 - Research Methods and Project\\Results\\G(avg) + G(dev)\\iris\\";
     static StringBuilder stringBuilder;
 
     private static void doManhattan(int itereation, NeuralNetwork NN, PatternFile patternFile, ManhattanRandomWalk manhattanRandomWalk)
@@ -162,13 +159,18 @@ public class Main {
 
     public static void main(String[] args)
     {
-        long start = System.nanoTime();
-        LinkedList<PatternFile> patternFiles = new LinkedList<>();
-        patternFiles.add( new PatternFile("benchmark/iris.csv",4,3));
-        runFDC(patternFiles);
-        runManhattan(patternFiles);
-        long end = System.nanoTime();
-        System.out.println("\nTotal Time: " + HelperFunctions.timeToString(end - start));
+        System.out.println(createNetwork1().getAllWeights().size());
+        System.out.println(createNetwork2().getAllWeights().size());
+        System.out.println(createNetwork3().getAllWeights().size());
+        System.out.println(createNetwork4().getAllWeights().size());
+//        System.out.println("Main");
+//        long start = System.nanoTime();
+//        LinkedList<PatternFile> patternFiles = new LinkedList<>();
+//        patternFiles.add(new PatternFile("src/usage/classification/iris.csv",4,3));
+//        runFDC(patternFiles);
+//        //runManhattan(patternFiles);
+//        long end = System.nanoTime();
+//        System.out.println("\nTotal Time: " + HelperFunctions.timeToString(end - start));
     }
 
     private static NeuralNetwork createNetwork1()
