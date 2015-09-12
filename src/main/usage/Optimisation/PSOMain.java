@@ -1,8 +1,7 @@
-package Optimisation;
+package usage.Optimisation;
 
 import algorithms.Optimisation.OptimisationProblem.BenchmarkFunctions.SphericalProblem;
 import algorithms.Optimisation.OptimisationProblem.OptimisationProblem;
-import algorithms.Optimisation.PopulationBased.EvolutionaryAlgorithm.GeneticAlgoritm.*;
 import algorithms.Optimisation.PopulationBased.PSO.GbestPSO;
 import algorithms.Optimisation.Solution.ParticleList;
 import algorithms.Optimisation.Solution.SolutionException;

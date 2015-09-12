@@ -1,4 +1,4 @@
-package Classification;
+package usage.Classification;
 
 import algorithms.NeuralNetwork.FeedForward.PatternFile;
 

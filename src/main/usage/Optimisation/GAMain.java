@@ -1,4 +1,4 @@
-package Optimisation;
+package usage.Optimisation;
 
 import algorithms.Optimisation.OptimisationProblem.BenchmarkFunctions.SphericalProblem;
 import algorithms.Optimisation.OptimisationProblem.OptimisationProblem;

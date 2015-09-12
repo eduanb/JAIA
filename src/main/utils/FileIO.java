@@ -17,6 +17,7 @@ public class FileIO
         PrintWriter writer;
         try
         {
+            new File(FileName).mkdirs();
             writer = new PrintWriter(FileName,"UTF-8");
             writer.print(content);
             writer.close();

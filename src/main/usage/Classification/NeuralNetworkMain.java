@@ -1,4 +1,4 @@
-package Classification;
+package usage.Classification;
 
 import algorithms.NeuralNetwork.FeedForward.PatternFile;
 import algorithms.NeuralNetwork.FeedForward.HiddenLayer;
@@ -26,9 +26,9 @@ public class NeuralNetworkMain
     public static void main(String[] args)
     {
         try {
-            PatternFile generalisationSet = MNISTReader.read("C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\t10k-images.idx3-ubyte", "C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\t10k-labels.idx1-ubyte");
+            PatternFile generalisationSet = MNISTReader.read("C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\usage.Classification\\t10k-images.idx3-ubyte", "C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\usage.Classification\\t10k-labels.idx1-ubyte");
             //PatternFile trainingSet = generalisationSet;
-            PatternFile trainingSet = MNISTReader.read("C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\train-images.idx3-ubyte", "C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\Classification\\train-labels.idx1-ubyte");
+            PatternFile trainingSet = MNISTReader.read("C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\usage.Classification\\train-images.idx3-ubyte", "C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\usage.Classification\\train-labels.idx1-ubyte");
             System.out.println("Done reading MNIST.");
             NeuralNetwork nn = createNetwork1(trainingSet.getNumIn(), trainingSet.getNumOut());
             OptimisationProblem optimisationProblem = new NeuralNetworkProblem(nn,trainingSet,generalisationSet,5);

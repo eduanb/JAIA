@@ -1,4 +1,4 @@
-package RandomWalk;
+package usage.RandomWalk;
 
 
 import algorithms.NeuralNetwork.FeedForward.*;
