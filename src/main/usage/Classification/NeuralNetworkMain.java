@@ -1,10 +1,6 @@
 package usage.Classification;
 
-import algorithms.NeuralNetwork.FeedForward.PatternFile;
-import algorithms.NeuralNetwork.FeedForward.HiddenLayer;
-import algorithms.NeuralNetwork.FeedForward.InputLayer;
-import algorithms.NeuralNetwork.FeedForward.NeuralNetwork;
-import algorithms.NeuralNetwork.FeedForward.OutputLayer;
+import algorithms.NeuralNetwork.FeedForward.*;
 import algorithms.Optimisation.OptimisationProblem.NeuralNetworkProblem;
 import algorithms.Optimisation.OptimisationProblem.OptimisationProblem;
 import algorithms.Optimisation.PopulationBased.PSO.GbestPSO;
@@ -23,6 +19,7 @@ import java.util.LinkedList;
 public class NeuralNetworkMain
 {
     static final int ITERATION_MAX = 100;
+
     public static void main(String[] args)
     {
         try {
@@ -31,23 +28,24 @@ public class NeuralNetworkMain
             PatternFile trainingSet = MNISTReader.read("C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\usage.Classification\\train-images.idx3-ubyte", "C:\\Users\\Eduan\\Google Drive\\git\\JAIA\\src\\usage\\usage.Classification\\train-labels.idx1-ubyte");
             System.out.println("Done reading MNIST.");
             NeuralNetwork nn = createNetwork1(trainingSet.getNumIn(), trainingSet.getNumOut());
-            OptimisationProblem optimisationProblem = new NeuralNetworkProblem(nn,trainingSet,generalisationSet,5);
+            OptimisationProblem optimisationProblem = new NeuralNetworkProblem(nn, trainingSet, generalisationSet, 5);
             StoppingCondition stoppingCondition = new IterationMaxStoppingCondition(ITERATION_MAX);
-            GbestPSO pso = new GbestPSO(2,2);
-            ParticleList particleList = new ParticleList(30,optimisationProblem.getProblemDimension());
+            GbestPSO pso = new GbestPSO(2, 2);
+            ParticleList particleList = new ParticleList(30, optimisationProblem.getProblemDimension());
             particleList.initialiseList(optimisationProblem.getMin(), optimisationProblem.getMax());
-            SolutionList result = pso.runUntilCondition(particleList,optimisationProblem,stoppingCondition);
-            System.out.println(nn.getMeanSquareError(trainingSet.getInputs(),trainingSet.getOutputs()));
+            SolutionList result = pso.runUntilCondition(particleList, optimisationProblem, stoppingCondition);
+            System.out.println(nn.getMeanSquareError(trainingSet.getInputs(), trainingSet.getOutputs()));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SolutionException e) {
             e.printStackTrace();
         }
     }
+
     private static NeuralNetwork createNetwork1(int numInputs, int numOut)
     {
         LinkedList<HiddenLayer> hl = new LinkedList<>();
         hl.add(new HiddenLayer(4, numInputs));
-        return new NeuralNetwork(new InputLayer(numInputs),hl,new OutputLayer(numOut,4));
+        return new NeuralNetwork(new InputLayer(numInputs), hl, new OutputLayer(numOut, 4));
     }
 }

@@ -4,17 +4,17 @@ import algorithms.Optimisation.Solution.Solution;
 
 public abstract interface OptimisationProblem
 {
-	public double evaluate(Solution solution);
+    public double evaluate(Solution solution);
 
-	public double getErrTolerance();
+    public double getErrTolerance();
 
-	public int getProblemDimension();
+    public int getProblemDimension();
 
-	public double getTargetValue();
+    public double getTargetValue();
 
-	public double getMin();
+    public double getMin();
 
-	public double getMax();
+    public double getMax();
 
-	public String getName();
+    public String getName();
 }

@@ -4,17 +4,17 @@ import algorithms.Optimisation.Solution.SolutionList;
 
 public class IterationMaxStoppingCondition implements StoppingCondition
 {
-	private int maximum;
+    private int maximum;
 
-	public IterationMaxStoppingCondition(int maximum)
-	{
-		this.maximum = maximum;
-	}
+    public IterationMaxStoppingCondition(int maximum)
+    {
+        this.maximum = maximum;
+    }
 
-	@Override
-	public boolean TerminationCondition(SolutionList population, int iterationCount)
-	{
-		return iterationCount >= maximum;
-	}
+    @Override
+    public boolean TerminationCondition(SolutionList population, int iterationCount)
+    {
+        return iterationCount >= maximum;
+    }
 
 }

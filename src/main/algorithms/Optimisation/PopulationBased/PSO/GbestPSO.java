@@ -8,7 +8,8 @@ import algorithms.Optimisation.Solution.SolutionList;
 /**
  * Created by Eduan on 2015-08-29.
  */
-public class GbestPSO extends AbstractPSO {
+public class GbestPSO extends AbstractPSO
+{
     public GbestPSO(double C1, double C2)
     {
         this.C1 = C1;
@@ -16,16 +17,16 @@ public class GbestPSO extends AbstractPSO {
     }
 
     @Override
-    public Particle getGBest(SolutionList swarm) {
-        Particle best = (Particle)swarm.getSolution(0);
+    public Particle getGBest(SolutionList swarm)
+    {
+        Particle best = (Particle) swarm.getSolution(0);
         try {
             for (Solution solution : swarm.getSolutions()) {
                 Particle particle = (Particle) solution;
                 if (particle.getFitness() > best.getFitness())
                     best = particle;
             }
-        } catch (SolutionException e)
-        {
+        } catch (SolutionException e) {
             e.printStackTrace();
         }
         return best;

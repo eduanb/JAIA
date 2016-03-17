@@ -11,20 +11,22 @@ import algorithms.Optimisation.StoppingCondition.StoppingCondition;
 /**
  * Created by Eduan on 2015-08-29.
  */
-public class GAMain {
-    public static void main(String[] args) throws SolutionException {
+public class GAMain
+{
+    public static void main(String[] args) throws SolutionException
+    {
         OptimisationProblem problem = new SphericalProblem(5);
         SelectionStrategy selectionStrategy = new TournamentSelection(5);
-        Crossover crossover = new RandomOnePointCrossover(selectionStrategy,0.8);
-        Mutate mutate = new RandomMutate(0.02,problem.getMin(),problem.getMax());
-        GeneticAlgorithm ga = new GeneticAlgorithm(crossover,mutate);
+        Crossover crossover = new RandomOnePointCrossover(selectionStrategy, 0.8);
+        Mutate mutate = new RandomMutate(0.02, problem.getMin(), problem.getMax());
+        GeneticAlgorithm ga = new GeneticAlgorithm(crossover, mutate);
         StoppingCondition stoppingCondition = new IterationMaxStoppingCondition(100);
-        SolutionList solutionList = new SolutionList(10,problem.getProblemDimension());
+        SolutionList solutionList = new SolutionList(10, problem.getProblemDimension());
         solutionList.initialiseList(problem.getMin(), problem.getMax());
-        SolutionList result = ga.runUntilCondition(solutionList,problem,stoppingCondition);
+        SolutionList result = ga.runUntilCondition(solutionList, problem, stoppingCondition);
         System.out.println(result);
         stoppingCondition = new IterationMaxStoppingCondition(102);
-        result = ga.runUntilCondition(result,problem,stoppingCondition);
+        result = ga.runUntilCondition(result, problem, stoppingCondition);
         System.out.println(result);
     }
 }

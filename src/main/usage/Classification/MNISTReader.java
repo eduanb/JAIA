@@ -27,19 +27,16 @@ public class MNISTReader
         assert (numLabels != numImages);
 
         int numRead = 0;
-        PatternFile result = new PatternFile(numCols * numRows,10);
-        while (labels.available() > 0 && numRead < numLabels)
-        {
+        PatternFile result = new PatternFile(numCols * numRows, 10);
+        while (labels.available() > 0 && numRead < numLabels) {
             byte label = labels.readByte();
             double[] output = new double[10]; //Default to 0 in Java
             output[label] = 1;
             numRead++;
             double[] image = new double[numCols * numRows];
             int pos = 0;
-            for (int colIdx = 0; colIdx < numCols; colIdx++)
-            {
-                for (int rowIdx = 0; rowIdx < numRows; rowIdx++)
-                {
+            for (int colIdx = 0; colIdx < numCols; colIdx++) {
+                for (int rowIdx = 0; rowIdx < numRows; rowIdx++) {
                     image[pos++] = images.readUnsignedByte();
                 }
             }

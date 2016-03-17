@@ -31,18 +31,13 @@ public class ManhattanRandomWalk extends AbstractRandomWalk
     {
         int totalWeights = neuralNetwork.getTotalWeights();
         int weightpos = random.nextInt(totalWeights + 1);
-        for(HiddenLayer hiddenLayer: neuralNetwork.getHiddenLayers())
-        {
+        for (HiddenLayer hiddenLayer : neuralNetwork.getHiddenLayers()) {
             int weightsInLayer = hiddenLayer.getNeuronCount() * hiddenLayer.getInputCount();
-            if(weightpos < weightsInLayer)
-            {
-                for(int k = 0; k < hiddenLayer.getInputCount(); k++)
-                {
-                    for (int l = 0; l < hiddenLayer.getNeuronCount(); l++)
-                    {
+            if (weightpos < weightsInLayer) {
+                for (int k = 0; k < hiddenLayer.getInputCount(); k++) {
+                    for (int l = 0; l < hiddenLayer.getNeuronCount(); l++) {
                         weightpos--;
-                        if (weightpos == 0)
-                        {
+                        if (weightpos == 0) {
                             hiddenLayer.setSpecificRandomWalkDirection(k, l, newDirection(hiddenLayer.getRandomWalkDirection()[k][l], hiddenLayer.getWeights()[k][l]));
                             hiddenLayer.setWeight(k, l, updateWeight(hiddenLayer.getRandomWalkDirection()[k][l], hiddenLayer.getWeights()[k][l], delta));
                             return neuralNetwork;
@@ -54,13 +49,10 @@ public class ManhattanRandomWalk extends AbstractRandomWalk
             }
             weightpos -= weightsInLayer;
         }
-        for(int k = 0; k < neuralNetwork.getOutputLayer().getInputCount(); k++)
-        {
-            for (int l = 0; l < neuralNetwork.getOutputLayer().getNeuronCount(); l++)
-            {
+        for (int k = 0; k < neuralNetwork.getOutputLayer().getInputCount(); k++) {
+            for (int l = 0; l < neuralNetwork.getOutputLayer().getNeuronCount(); l++) {
                 weightpos--;
-                if (weightpos == 0)
-                {
+                if (weightpos == 0) {
                     neuralNetwork.getOutputLayer().setSpecificRandomWalkDirection(k, l, newDirection(neuralNetwork.getOutputLayer().getRandomWalkDirection()[k][l], neuralNetwork.getOutputLayer().getWeights()[k][l]));
                     neuralNetwork.getOutputLayer().setWeight(k, l, updateWeight(neuralNetwork.getOutputLayer().getRandomWalkDirection()[k][l], neuralNetwork.getOutputLayer().getWeights()[k][l], delta));
                 }

@@ -1,14 +1,21 @@
 package Algorithm.Optimisation.EvolutionaryAlgorithm;
 
-public class DifferentialEvolution {
+public class DifferentialEvolution
+{
 
     public static final double alpha = 0.001;
 
-    public static double evaluate(double x) {
-        return -x * (x + 1);
+    public static void main(String[] args)
+    {
+
+        long t = System.currentTimeMillis();
+        System.out.println(max(3));
+        System.out.println("Time (Milliseconds): " + (System.currentTimeMillis() - t));
+
     }
 
-    public static double max(int N) { // N is initial array size.
+    public static double max(int N)
+    { // N is initial array size.
 
         double[] xs = new double[N];
 
@@ -44,7 +51,13 @@ public class DifferentialEvolution {
 
     }
 
-    public static double average(double[] values) {
+    public static double evaluate(double x)
+    {
+        return -x * (x + 1);
+    }
+
+    public static double average(double[] values)
+    {
         double sum = 0;
         for (int i = 0; i < values.length; i++) {
             sum += values[i];
@@ -54,18 +67,11 @@ public class DifferentialEvolution {
 
     }
 
-    public static boolean about(double a, double b) {
+    public static boolean about(double a, double b)
+    {
         if (Math.abs(a - b) <= alpha / 10000) { // This should work.
             return true;
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-
-        long t = System.currentTimeMillis();
-        System.out.println(max(3));
-        System.out.println("Time (Milliseconds): " + (System.currentTimeMillis() - t));
-
     }
 }

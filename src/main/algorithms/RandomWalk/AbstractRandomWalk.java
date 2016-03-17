@@ -27,12 +27,9 @@ public abstract class AbstractRandomWalk
     public NeuralNetwork InitialiseNetwork(NeuralNetwork neuralNetwork)
     {
         LinkedList<HiddenLayer> hiddenLayers = neuralNetwork.getHiddenLayers();
-        for (HiddenLayer hl : hiddenLayers)
-        {
-            for(int i = 0; i < hl.getInputCount(); i++)
-            {
-                for(int j = 0; j < hl.getNeuronCount(); j++)
-                {
+        for (HiddenLayer hl : hiddenLayers) {
+            for (int i = 0; i < hl.getInputCount(); i++) {
+                for (int j = 0; j < hl.getNeuronCount(); j++) {
                     boolean randomDirection = random.nextBoolean();
                     double weight = getRandomEdge(randomDirection);
                     hl.getRandomWalkDirection()[i][j] = randomDirection;
@@ -42,10 +39,8 @@ public abstract class AbstractRandomWalk
         }
 
         OutputLayer outputLayer = neuralNetwork.getOutputLayer();
-        for(int i = 0; i < outputLayer.getInputCount(); i++)
-        {
-            for(int j = 0; j < outputLayer.getNeuronCount(); j++)
-            {
+        for (int i = 0; i < outputLayer.getInputCount(); i++) {
+            for (int j = 0; j < outputLayer.getNeuronCount(); j++) {
                 boolean randomDirection = random.nextBoolean();
                 double weight = getRandomEdge(randomDirection);
                 outputLayer.getRandomWalkDirection()[i][j] = randomDirection;
@@ -55,13 +50,18 @@ public abstract class AbstractRandomWalk
         return neuralNetwork;
     }
 
+    private double getRandomEdge(boolean in)
+    {
+        return in ? min : max;
+    }
+
     public abstract NeuralNetwork AbsoluteStep(NeuralNetwork neuralNetwork, double stepSize);
 
     public abstract NeuralNetwork RelativeStep(NeuralNetwork neuralNetwork, double stepSize);
 
     protected boolean newDirection(boolean in, double current)
     {
-        if ( current <= min || current >= max)
+        if (current <= min || current >= max)
             return !in;
         return in;
     }
@@ -69,10 +69,5 @@ public abstract class AbstractRandomWalk
     protected double updateWeight(boolean in, double current, double delta)
     {
         return in ? (current - delta) : (current + delta);
-    }
-
-    private double getRandomEdge(boolean in)
-    {
-        return in ? min : max;
     }
 }

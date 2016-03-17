@@ -5,5 +5,5 @@ import algorithms.Optimisation.Solution.SolutionList;
 
 public interface Mutate
 {
-	public SolutionList mutate(SolutionList population) throws SolutionException;
+    public SolutionList mutate(SolutionList population) throws SolutionException;
 }

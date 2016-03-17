@@ -1,4 +1,5 @@
 package utils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -15,15 +16,12 @@ public class FileIO
     public static void printFile(String FileName, String content)
     {
         PrintWriter writer;
-        try
-        {
+        try {
             new File(FileName).mkdirs();
-            writer = new PrintWriter(FileName,"UTF-8");
+            writer = new PrintWriter(FileName, "UTF-8");
             writer.print(content);
             writer.close();
-        }
-        catch (FileNotFoundException | UnsupportedEncodingException e)
-        {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
@@ -37,16 +35,12 @@ public class FileIO
     {
         Scanner scanner;
         StringBuilder result = new StringBuilder();
-        try
-        {
+        try {
             scanner = new Scanner(file);
-            while (scanner.hasNextLine())
-            {
+            while (scanner.hasNextLine()) {
                 result.append(scanner.nextLine());
             }
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             System.out.println("File does not exist.");
             System.exit(-1);//Exit with error
         }
@@ -62,20 +56,17 @@ public class FileIO
     {
         Scanner scanner;
         StringBuilder result = new StringBuilder();
-        try
-        {
+        try {
             scanner = new Scanner(file);
-            while (scanner.hasNextLine())
-            {
+            while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 //removes whitespace
                 line = line.replaceAll("\\s", "");
-                if(line.equals("")) continue;
+                if (line.equals(""))
+                    continue;
                 result.append(line);
             }
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             System.out.println("File does not exist.");
             System.exit(-1);//Exit with error
         }
@@ -91,21 +82,18 @@ public class FileIO
     {
         Scanner scanner;
         StringBuilder result = new StringBuilder();
-        try
-        {
+        try {
             scanner = new Scanner(file);
-            while (scanner.hasNextLine())
-            {
+            while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 //removes whitespace
                 line = line.replaceAll("\\s", "");
                 line = line.split("//")[0];
-                if(line.equals("")) continue;
+                if (line.equals(""))
+                    continue;
                 result.append(line);
             }
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             System.out.println("File does not exist.");
             System.exit(-1);//Exit with error
         }
@@ -114,23 +102,19 @@ public class FileIO
 
     public static String[] ReadArray(String fileName)
     {
-        return  ReadArray(new File(fileName));
+        return ReadArray(new File(fileName));
     }
 
     public static String[] ReadArray(File file)
     {
         Scanner scanner;
         List<String> result = new LinkedList<>();
-        try
-        {
+        try {
             scanner = new Scanner(file);
-            while (scanner.hasNextLine())
-            {
+            while (scanner.hasNextLine()) {
                 result.add(scanner.nextLine());
             }
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             System.out.println("File does not exist.");
             System.exit(-1);//Exit with error
         }
@@ -139,23 +123,19 @@ public class FileIO
 
     public static String[][] Read2DArray(String fileName, String separator)
     {
-        return  Read2DArray(new File(fileName), separator);
+        return Read2DArray(new File(fileName), separator);
     }
 
     public static String[][] Read2DArray(File file, String separator)
     {
         Scanner scanner;
         List<String[]> result = new LinkedList<>();
-        try
-        {
+        try {
             scanner = new Scanner(file);
-            while (scanner.hasNextLine())
-            {
+            while (scanner.hasNextLine()) {
                 result.add(scanner.nextLine().split(separator));
             }
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             System.out.println("File does not exist.");
             System.exit(-1);//Exit with error
         }
@@ -164,7 +144,7 @@ public class FileIO
 
     public static int[][] Read2DArrayAsInt(String fileName, String separator)
     {
-        return  Read2DArrayAsInt(new File(fileName), separator);
+        return Read2DArrayAsInt(new File(fileName), separator);
     }
 
     public static int[][] Read2DArrayAsInt(File file, String separator)
@@ -172,25 +152,20 @@ public class FileIO
         Scanner scanner;
         int[][] result = new int[9][];
         int pos = 0;
-        try
-        {
+        try {
             scanner = new Scanner(file);
-            while (scanner.hasNextLine())
-            {
+            while (scanner.hasNextLine()) {
                 String[] splitString = scanner.nextLine().split(separator);
                 int[] splitInt = new int[splitString.length];
-                for(int i = 0; i < splitString.length; i++ )
-                {
-                    if(splitString[i].equals("") || splitString[i].equals(" "))
+                for (int i = 0; i < splitString.length; i++) {
+                    if (splitString[i].equals("") || splitString[i].equals(" "))
                         splitInt[i] = Integer.MIN_VALUE;
                     else
                         splitInt[i] = Integer.parseInt(splitString[i]);
                 }
                 result[pos++] = splitInt;
             }
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             System.out.println("File does not exist.");
             System.exit(-1);//Exit with error
         }
